@@ -14,11 +14,13 @@ import com.mp.mp_time.R
 import com.mp.mp_time.adapter.SubjectAdapter
 import com.mp.mp_time.data.Subject
 import com.mp.mp_time.databinding.FragmentStudyBinding
+import com.mp.mp_time.viewmodel.FragmentRequest
 import com.mp.mp_time.viewmodel.StudyViewModel
 
 class StudyFragment : Fragment() {
     var binding: FragmentStudyBinding? = null
     val viewModel: StudyViewModel by activityViewModels()
+    lateinit var adapter: SubjectAdapter
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -41,8 +43,7 @@ class StudyFragment : Fragment() {
     private fun init() {
         binding!!.apply {
             subjectRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            val adapter = SubjectAdapter(mutableListOf<Subject>())
-            subjectRecyclerView.adapter = adapter
+            adapter = SubjectAdapter(viewModel.subjectList)
 
             val simpleCallBack = object: ItemTouchHelper.SimpleCallback(
                     ItemTouchHelper.DOWN or ItemTouchHelper.UP,
@@ -66,22 +67,17 @@ class StudyFragment : Fragment() {
             adapter.itemClickListener = object : SubjectAdapter.OnItemClickListener {
                 override fun onTimerClick(holder: SubjectAdapter.ViewHolder, view: View, data: Subject, position: Int) {
                     // TimerFragment 로 전환
+                    //viewModel.fragmentTranslationRequest(FragmentRequest.REQUEST_TIMER)
                     Toast.makeText(requireContext(), "Timer 시작", Toast.LENGTH_SHORT).show()
                 }
             }
 
-            // 테스트를 위한 임시 값들
-            adapter.addItem(Subject("모프", "1:00:00", "12주차 강의", "30%"))
-            adapter.addItem(Subject("운체", "3:04:10", "11주차 강의", "50%"))
-            adapter.addItem(Subject("c프", "1:00:00", "12주차 강의", "30%"))
-            adapter.addItem(Subject("java", "1:00:00", "12주차 강의", "30%"))
-            adapter.addItem(Subject("동아리", "1:00:00", "1주차 강의", "80%"))
-            adapter.addItem(Subject("리액트", "1:00:00", "0주차 강의", "30%"))
-            adapter.addItem(Subject("알고리즘", "1:00:00", "강의", "10%"))
-            adapter.addItem(Subject("자료구조", "1:00:00", "강의", "10%"))
-            adapter.addItem(Subject("팀플", "1:00:00", "12주차 강의", "10%"))
+            subjectRecyclerView.adapter = adapter
 
-
+            addSubjectBtn.setOnClickListener {
+                // 과목 등록
+                viewModel.fragmentTranslationRequest(FragmentRequest.REQUEST_SUBJECT)
+            }
         }
     }
 

@@ -3,32 +3,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.StudyFragment"
+    tools:context=".view.AddSubjectFragment"
     android:orientation="vertical">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="과목 관리"
+        android:text="과목 추가하기"
         android:textSize="20dp"
         android:textColor="@color/white"
         android:layout_gravity="center"
         android:layout_margin="20dp"/>
 
     <TextView
-        android:id="@+id/addSubjectBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="과목명"
+        android:textColor="@color/white"
+        android:layout_marginHorizontal="20dp"/>
+    <EditText
+        android:id="@+id/inputSubjectName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="과목명을 입력하세요. ex. 수학, 영어 ..."
+        android:layout_marginHorizontal="20dp"
+        android:background="@android:color/transparent"/>
+    <Button
+        android:id="@+id/addBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/box_gray"
-        android:layout_marginHorizontal="20dp"
-        android:padding="15dp"
-        android:textSize="18dp"
-        android:text="+ 과목 추가하기"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/subjectRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"/>
-
+        android:text="추가"
+        android:layout_margin="20dp"
+        android:padding="15dp"/>
 </LinearLayout>

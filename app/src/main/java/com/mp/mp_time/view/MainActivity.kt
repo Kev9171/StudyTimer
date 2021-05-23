@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import com.mp.mp_time.R
 import com.mp.mp_time.databinding.ActivityMainBinding
+import com.mp.mp_time.viewmodel.FragmentRequest
 import com.mp.mp_time.viewmodel.StudyViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -19,11 +20,26 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         init()
+        initViewModel()
 
         binding.bottomMenu.selectedItemId = R.id.studyMenu
         supportFragmentManager.beginTransaction()
             .replace(R.id.mainContainer, StudyFragment())
             .commit()
+    }
+
+    private fun initViewModel() {
+        viewModel.fragmentRequest.observe(this) {
+            fragment = when(it){
+                FragmentRequest.REQUEST_SUBJECT -> AddSubjectFragment()
+                else -> AddSubjectFragment()
+            }
+
+            val fragmentTranslation = supportFragmentManager.beginTransaction()
+                .replace(R.id.mainContainer, fragment!!)
+            fragmentTranslation.addToBackStack(null)
+            fragmentTranslation.commit()
+        }
     }
 
 
