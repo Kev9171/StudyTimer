@@ -15,7 +15,7 @@ import kotlin.concurrent.timer
 class StudyFragment : Fragment() {
     var binding: FragmentStudyBinding? = null
     val viewModel: StudyViewModel by activityViewModels()
-    private var time = 550
+    private var time = 600
     private var timerTask : Timer? = null
     private var iswork = false
 
