@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.mp.mp_time.R
 import com.mp.mp_time.databinding.ActivityMainBinding
 import com.mp.mp_time.viewmodel.StudyViewModel
+import kotlin.concurrent.timerTask
 
 class MainActivity : AppCompatActivity() {
     private val binding: ActivityMainBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
@@ -24,6 +25,8 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.mainContainer, StudyFragment())
             .commit()
+
+
     }
 
 
