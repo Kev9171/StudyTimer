@@ -15,9 +15,11 @@ import kotlin.concurrent.timer
 class StudyFragment : Fragment() {
     var binding: FragmentStudyBinding? = null
     val viewModel: StudyViewModel by activityViewModels()
-    private var time = 600
+    private var time = 40
     private var timerTask : Timer? = null
     private var iswork = false
+    private var rate = 0
+    private val maxtime = time
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -28,6 +30,10 @@ class StudyFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentStudyBinding.inflate(layoutInflater, container, false)
+
+        binding!!.graph.max = time
+
+        binding!!.countdown.text = "${String.format("%02d", time / 60)} : ${String.format("%02d", time % 60)}"
 
         binding!!.play.setOnClickListener {
 
@@ -57,6 +63,9 @@ class StudyFragment : Fragment() {
         timerTask = timer(period = 1000) {
             time--
 
+            rate = maxtime - time
+
+
             var sec = time % 60
             var min = time / 60
 
@@ -66,6 +75,7 @@ class StudyFragment : Fragment() {
             activity?.runOnUiThread {
 
                 binding!!.countdown.text = "${String.format("%02d", min)} : ${String.format("%02d", sec)}"
+                binding!!.graph.progress = rate
 
             }
 
