@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.bottomMenu.selectedItemId = R.id.studyMenu
         supportFragmentManager.beginTransaction()
-            .replace(R.id.mainContainer, StudyFragment())
+            .replace(R.id.mainContainer, CalendarFragment())
             .commit()
     }
 
@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         binding.apply {
             bottomMenu.setOnNavigationItemSelectedListener {
                 fragment = when(it.itemId) {
-                    R.id.schedulerMenu -> StudyFragment() // TODO fragment 바꾸기
+                    R.id.schedulerMenu -> CalendarFragment() // TODO fragment 바꾸기
                     R.id.studyMenu -> StudyFragment()
                     R.id.userMenu -> StudyFragment() // TODO fragment 바꾸기
                     R.id.Menu -> StudyFragment() // TODO 추가기능

@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.mp.mp_time.data.Subject
+import com.mp.mp_time.data.Test
 
 enum class FragmentRequest {
     REQUEST_SUBJECT, REQUEST_TIMER
@@ -13,8 +14,10 @@ class StudyViewModel(application: Application) : AndroidViewModel(application) {
 
     // user subject list
     val subjectList = mutableListOf<Subject>()
+    val testList = mutableListOf<Test>()
 
     var newSubject: MutableLiveData<Subject> = MutableLiveData()
+    var newTest: MutableLiveData<Test> = MutableLiveData()
 
     // fragment translation
     val fragmentRequest: MutableLiveData<FragmentRequest> = MutableLiveData<FragmentRequest>()
@@ -30,11 +33,19 @@ class StudyViewModel(application: Application) : AndroidViewModel(application) {
         subjectList.add(Subject("알고리즘", "1:00:00", "강의", "10%"))
         subjectList.add(Subject("자료구조", "1:00:00", "강의", "10%"))
         subjectList.add(Subject("팀플", "1:00:00", "12주차 강의", "10%"))
+
+        testList.add(Test("모프", 2021, 4,2))
+        testList.add(Test("운체", 2021, 5,15))
     }
 
     fun addSubject(subject: Subject){
         newSubject.value = subject
         subjectList.add(subject)
+    }
+
+    fun addTest(test: Test){
+        newTest.value = test
+        testList.add(test)
     }
 
     fun fragmentTranslationRequest(target: FragmentRequest){
