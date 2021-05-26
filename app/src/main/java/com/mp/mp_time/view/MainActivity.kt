@@ -47,18 +47,18 @@ class MainActivity : AppCompatActivity() {
         binding.apply {
             bottomMenu.setOnNavigationItemSelectedListener {
                 fragment = when(it.itemId) {
-                    R.id.schedulerMenu -> CalendarFragment() // TODO fragment 바꾸기
+                    R.id.schedulerMenu -> CalendarFragment()
                     R.id.studyMenu -> StudyFragment()
-                    R.id.userMenu -> StudyFragment() // TODO fragment 바꾸기
+                    R.id.userMenu -> StudyFragment()
                     R.id.Menu -> StudyFragment() // TODO 추가기능
                     else -> StudyFragment()
                 }
-                fragment?.let {
+                fragment?.let { fragment ->
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.mainContainer, it)
+                        .replace(R.id.mainContainer, fragment)
                         .commit()
-                } ?: Log.d("ERROR", "Error:: can't make new fragment")
-                return@setOnNavigationItemSelectedListener true
+                } ?: Log.e("ERROR", "Error:: can't make new fragment")
+                true
             }
         }
     }
