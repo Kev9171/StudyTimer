@@ -7,13 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.mp.mp_time.R
-import com.mp.mp_time.databinding.FragmentStudyBinding
+import com.mp.mp_time.databinding.FragmentTimerBinding
 import com.mp.mp_time.viewmodel.StudyViewModel
 import java.util.*
 import kotlin.concurrent.timer
 
-class StudyFragment : Fragment() {
-    var binding: FragmentStudyBinding? = null
+class TimerFragment : Fragment() {
+    var binding: FragmentTimerBinding? = null
     val viewModel: StudyViewModel by activityViewModels()
     private var time = 40
     private var timerTask : Timer? = null
@@ -29,7 +29,7 @@ class StudyFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentStudyBinding.inflate(layoutInflater, container, false)
+        binding = FragmentTimerBinding.inflate(layoutInflater, container, false)
 
         binding!!.graph.max = time
 
