@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.schedulerMenu -> CalendarFragment()
                 R.id.studyMenu -> StudyFragment()
                 R.id.userMenu -> UserSettingsFragment()
-                R.id.Menu -> StudyFragment() // TODO 추가기능
+                R.id.Menu -> DBFragment() // TODO 추가기능
                 else -> StudyFragment()
             }
             fragment?.let { fragment ->
