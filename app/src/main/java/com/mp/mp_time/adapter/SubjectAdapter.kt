@@ -66,10 +66,8 @@ RecyclerView.Adapter<SubjectAdapter.ViewHolder>(){
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.apply {
-            subjectName.text = items[position].name
-            subjectTime.text = items[position].time
-            subjectGoal.text = items[position].goal
-            subjectAchievement.text = items[position].achieve
+            subjectName.text = items[position].subName
+            subjectTime.text = items[position].achievedTime
         }
     }
 
