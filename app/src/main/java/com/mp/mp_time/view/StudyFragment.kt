@@ -67,7 +67,7 @@ class StudyFragment : Fragment() {
             adapter.itemClickListener = object : SubjectAdapter.OnItemClickListener {
                 override fun onTimerClick(holder: SubjectAdapter.ViewHolder, view: View, data: Subject, position: Int) {
                     // TimerFragment 로 전환
-                    //viewModel.fragmentTranslationRequest(FragmentRequest.REQUEST_TIMER)
+                    viewModel.fragmentTranslationRequest(FragmentRequest.REQUEST_TIMER)
                     Toast.makeText(requireContext(), "Timer 시작", Toast.LENGTH_SHORT).show()
                 }
             }

@@ -3,8 +3,10 @@ package com.mp.mp_time.view
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mp.mp_time.R
 import com.mp.mp_time.databinding.ActivityMainBinding
 import com.mp.mp_time.viewmodel.FragmentRequest
@@ -32,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.fragmentRequest.observe(this) {
             fragment = when(it){
                 FragmentRequest.REQUEST_SUBJECT -> AddSubjectFragment()
-                else -> AddSubjectFragment()
+                FragmentRequest.REQUEST_TIMER -> TimerFragment()
             }
 
             val fragmentTranslation = supportFragmentManager.beginTransaction()
@@ -44,22 +46,21 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun init() {
-        binding.apply {
-            bottomMenu.setOnNavigationItemSelectedListener {
-                fragment = when(it.itemId) {
-                    R.id.schedulerMenu -> CalendarFragment()
-                    R.id.studyMenu -> StudyFragment()
-                    R.id.userMenu -> StudyFragment()
-                    R.id.Menu -> StudyFragment() // TODO 추가기능
-                    else -> StudyFragment()
-                }
-                fragment?.let { fragment ->
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.mainContainer, fragment)
-                        .commit()
-                } ?: Log.e("ERROR", "Error:: can't make new fragment")
-                true
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomMenu)
+        bottomNavigationView.setOnNavigationItemSelectedListener { item: MenuItem ->
+            fragment = when(item.itemId) {
+                R.id.schedulerMenu -> CalendarFragment()
+                R.id.studyMenu -> StudyFragment()
+                R.id.userMenu -> StudyFragment()
+                R.id.Menu -> StudyFragment() // TODO 추가기능
+                else -> StudyFragment()
             }
+            fragment?.let { fragment ->
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.mainContainer, fragment)
+                    .commit()
+            } ?: Log.e("ERROR", "Error:: can't make new fragment")
+            true
         }
     }
 }
