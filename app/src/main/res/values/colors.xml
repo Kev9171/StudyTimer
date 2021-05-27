@@ -15,4 +15,6 @@
     <color name="base_white">#D8D8D8</color>
     <color name="base_gray">#908E92</color>
     <color name="base_purple">#5C5860</color>
+    <color name="material_white">#FFE1E2DF</color>
+    <color name="md_blue_200">#FF1E293B</color>
 </resources>

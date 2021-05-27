@@ -10,8 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MPTIME">
 
-
-
         <activity android:name=".view.LoadingActivity"
             android:theme="@style/Theme.Design.NoActionBar">
             <intent-filter>
@@ -22,7 +20,12 @@
         </activity>
 
         <activity android:name=".view.MainActivity">
+        </activity>
 
+        <activity android:name=".view.SetThemeActivity">
+        </activity>
+
+        <activity android:name=".view.MusicPlayerActivity">
         </activity>
 
     </application>

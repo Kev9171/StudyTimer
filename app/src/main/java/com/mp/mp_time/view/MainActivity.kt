@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
             fragment = when(item.itemId) {
                 R.id.schedulerMenu -> CalendarFragment()
                 R.id.studyMenu -> StudyFragment()
-                R.id.userMenu -> StudyFragment()
+                R.id.userMenu -> UserSettingsFragment()
                 R.id.Menu -> StudyFragment() // TODO 추가기능
                 else -> StudyFragment()
             }
