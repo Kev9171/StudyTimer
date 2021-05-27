@@ -41,7 +41,7 @@ class AddSubjectFragment : Fragment() {
                 }
                 else {
                     // 과목 등록
-                    viewModel.addSubject(Subject(
+                    viewModel.insertSubject(Subject(
                         subName = inputSubjectName.text.toString()
                     ))
 
