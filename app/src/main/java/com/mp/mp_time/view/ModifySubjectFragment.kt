@@ -94,39 +94,42 @@ class ModifySubjectFragment : Fragment() {
             breakHourSpinner.setSelection(breakHour)
             breakMinSpinner.setSelection(breakMin/5)
 
+            // 과목 정보 수정
             modifyBtn.setOnClickListener {
-                //if(inputSubjectName.text.toString() == ""){
-                if(true) {
-                    Toast.makeText(requireContext(), ".", Toast.LENGTH_SHORT).show()
-                }
-                else {
-                    // 과목 등록
-                    val studyTime: Float =
-                            studyHourSpinner.selectedItem.toString().toInt() +
-                                    studyMinSpinner.selectedItem.toString().toFloat() / 100
-                    val breakTime: Float =
-                            breakHourSpinner.selectedItem.toString().toInt() +
-                                    breakMinSpinner.selectedItem.toString().toFloat() / 100
+                // Toast.makeText(requireContext(), ".", Toast.LENGTH_SHORT).show()
+                // 과목 수정 사항 확인
+                val newStudyTime: Float =
+                        studyHourSpinner.selectedItem.toString().toInt() +
+                                studyMinSpinner.selectedItem.toString().toFloat() / 100
+                val newBreakTime: Float =
+                        breakHourSpinner.selectedItem.toString().toInt() +
+                                breakMinSpinner.selectedItem.toString().toFloat() / 100
 
-                    val date = LocalDateTime.now().format(DateTimeFormatter.ISO_DATE) // 오늘 날짜. 'yyyy-mm-dd' 형식
+                val date = LocalDateTime.now().format(DateTimeFormatter.ISO_DATE) // 오늘 날짜. 'yyyy-mm-dd' 형식
 
-                    viewModel.insertSubject(Subject(
-                            subName = "",//inputSubjectName.text.toString(),
-                            isPage = isPage,
-                            goalInt = inputGoalInt.text.toString().toInt(),
-                            studyTime= studyTime,
-                            breakTime= breakTime,
-                            date = date,
-                            achievedTime = "00:00:00"
-                    ))
 
-                    // fragment 종료
-                    requireActivity().supportFragmentManager
-                            .beginTransaction()
-                            .remove(this@ModifySubjectFragment)
-                            .commit()
-                    requireActivity().supportFragmentManager.popBackStack()
-                }
+                // 과목 정보 수정
+                viewModel.updateSubject()
+
+                // fragment 종료
+                requireActivity().supportFragmentManager
+                        .beginTransaction()
+                        .remove(this@ModifySubjectFragment)
+                        .commit()
+                requireActivity().supportFragmentManager.popBackStack()
+            }
+
+            // 과목 정보 삭제
+            deleteBtn.setOnClickListener {
+                viewModel.deleteSubjectByName(subName = subject.subName)
+                Toast.makeText(requireContext(), "${subject.subName} 이 삭제되었습니다.", Toast.LENGTH_SHORT).show()
+
+                // fragment 종료
+                requireActivity().supportFragmentManager
+                        .beginTransaction()
+                        .remove(this@ModifySubjectFragment)
+                        .commit()
+                requireActivity().supportFragmentManager.popBackStack()
             }
         }
     }

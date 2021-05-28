@@ -102,6 +102,11 @@ class StudyViewModel(application: Application) : AndroidViewModel(application) {
         subjectDBHelper.deleteSubjectByName(date)
     }
 
+    // 과목 정보 수정
+    fun updateSubject() {
+        // subjectList.forEach {}
+    }
+
     fun addTest(test: Test){
         newTest.value = test
         testList.add(test)
