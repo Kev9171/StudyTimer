@@ -10,7 +10,7 @@ import com.mp.mp_time.database.SubjectDBHelper
 import com.mp.mp_time.database.ScheduleDBHelper
 
 enum class FragmentRequest {
-    REQUEST_SUBJECT, REQUEST_TIMER
+    REQUEST_SUBJECT, REQUEST_TIMER, REQUEST_MODIFY
 }
 
 class StudyViewModel(application: Application) : AndroidViewModel(application) {
@@ -20,6 +20,7 @@ class StudyViewModel(application: Application) : AndroidViewModel(application) {
     val testList = mutableListOf<Test>()
 
     var timerSubjectNow : Subject? = null   // Timer 시작하는 과목 정보
+    var modifySubjectNow : Subject? = null   // 수정/삭제하려는 과목 정보
     var newTest: MutableLiveData<Test> = MutableLiveData()
 
     // fragment translation

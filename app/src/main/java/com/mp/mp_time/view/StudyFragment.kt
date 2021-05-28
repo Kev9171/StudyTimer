@@ -71,6 +71,18 @@ class StudyFragment : Fragment() {
                     viewModel.fragmentTranslationRequest(FragmentRequest.REQUEST_TIMER)
                     //Toast.makeText(requireContext(), "Timer 시작", Toast.LENGTH_SHORT).show()
                 }
+
+                override fun onLongClick(
+                    holder: SubjectAdapter.ViewHolder,
+                    view: View,
+                    data: Subject,
+                    position: Int
+                ) {
+                    // ModifySubjectFragment 로 전환
+                    viewModel.modifySubjectNow = data // 해당 과목 view model 에 전달
+                    viewModel.fragmentTranslationRequest(FragmentRequest.REQUEST_MODIFY)
+                    //Toast.makeText(requireContext(), "과목 수정", Toast.LENGTH_SHORT).show()
+                }
             }
 
             subjectRecyclerView.adapter = adapter
