@@ -19,6 +19,7 @@ class StudyViewModel(application: Application) : AndroidViewModel(application) {
     var subjectList = mutableListOf<Subject>()
     val testList = mutableListOf<Test>()
 
+    var timerSubjectNow : Subject? = null   // Timer 시작하는 과목 정보
     var newTest: MutableLiveData<Test> = MutableLiveData()
 
     // fragment translation
