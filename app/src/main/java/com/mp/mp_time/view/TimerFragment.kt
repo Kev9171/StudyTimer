@@ -17,7 +17,7 @@ class TimerFragment : Fragment() {
     val viewModel: StudyViewModel by activityViewModels()
     val inputtotalstudytime = 40
     val inputstudy = 10
-    val inputrest = 5
+    val inputrest = 10
 
     private var time = inputtotalstudytime
     private var study = inputstudy
@@ -70,6 +70,9 @@ class TimerFragment : Fragment() {
 
         if(binding!!.menualButton.isChecked) {
 
+            if (time == 0)
+                timerTask?.cancel()
+
             timerTask = timer(period = 1000) {
                 time--
 
@@ -88,13 +91,15 @@ class TimerFragment : Fragment() {
                     binding!!.graph.progress = rate
 
                 }
-                if (time == 0)
-                    timerTask?.cancel()
+
 
             }
         }
 
         else if(binding!!.autoButton.isChecked) {
+
+            if (time == 0)
+                timerTask?.cancel()
 
             timerTask = timer(period = 1000) {
 
@@ -120,11 +125,24 @@ class TimerFragment : Fragment() {
                 }
 
                 else {
+
                     rest--
+                    activity?.runOnUiThread {
+
+                        binding!!.resttime.text = "남은 휴식 시간 : ${String.format("%02d", rest / 60)} : ${String.format("%02d", rest % 60)}"
+
+                    }
+
                     if(rest == 0){
 
                         study = inputstudy
                         rest = inputrest
+                        activity?.runOnUiThread {
+
+                            binding!!.resttime.text = ""
+
+                        }
+
 
                     }
                 }
@@ -134,8 +152,7 @@ class TimerFragment : Fragment() {
 
 
 
-                if (time == 0)
-                    timerTask?.cancel()
+
 
             }
 
