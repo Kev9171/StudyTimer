@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationView.setOnNavigationItemSelectedListener { item: MenuItem ->
             fragment = when(item.itemId) {
                 R.id.schedulerMenu -> CalendarFragment()
-                R.id.studyMenu -> TimerFragment()
+                R.id.studyMenu -> StudyFragment()
                 R.id.userMenu -> UserSettingsFragment()
                 R.id.Menu -> DBFragment() // TODO 추가기능
                 else -> StudyFragment()
