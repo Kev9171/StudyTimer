@@ -15,7 +15,14 @@ import kotlin.concurrent.timer
 class TimerFragment : Fragment() {
     var binding: FragmentTimerBinding? = null
     val viewModel: StudyViewModel by activityViewModels()
-    private var time = 40
+    val inputtotalstudytime = 40
+    val inputstudy = 10
+    val inputrest = 5
+
+    private var time = inputtotalstudytime
+    private var study = inputstudy
+    private var rest = inputrest
+
     private var timerTask : Timer? = null
     private var iswork = false
     private var rate = 0
@@ -60,26 +67,81 @@ class TimerFragment : Fragment() {
     }
 
     private fun startTimer() {
-        timerTask = timer(period = 1000) {
-            time--
 
-            rate = maxtime - time
+        if(binding!!.menualButton.isChecked) {
 
+            timerTask = timer(period = 1000) {
+                time--
 
-            var sec = time % 60
-            var min = time / 60
-
+                rate = maxtime - time
 
 
+                var sec = time % 60
+                var min = time / 60
 
-            activity?.runOnUiThread {
 
-                binding!!.countdown.text = "${String.format("%02d", min)} : ${String.format("%02d", sec)}"
-                binding!!.graph.progress = rate
+
+
+                activity?.runOnUiThread {
+
+                    binding!!.countdown.text = "${String.format("%02d", min)} : ${String.format("%02d", sec)}"
+                    binding!!.graph.progress = rate
+
+                }
+                if (time == 0)
+                    timerTask?.cancel()
+
+            }
+        }
+
+        else if(binding!!.autoButton.isChecked) {
+
+            timerTask = timer(period = 1000) {
+
+                if(study > 0) {
+                    time--
+                    study--
+                    rate = maxtime - time
+
+
+                    var sec = time % 60
+                    var min = time / 60
+
+
+
+
+                    activity?.runOnUiThread {
+
+                        binding!!.countdown.text = "${String.format("%02d", min)} : ${String.format("%02d", sec)}"
+                        binding!!.graph.progress = rate
+
+                    }
+
+                }
+
+                else {
+                    rest--
+                    if(rest == 0){
+
+                        study = inputstudy
+                        rest = inputrest
+
+                    }
+                }
+
+
+
+
+
+
+                if (time == 0)
+                    timerTask?.cancel()
 
             }
 
         }
+
+
     }
 
 }

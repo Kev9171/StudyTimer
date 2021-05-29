@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity() {
     var fragment: Fragment? = null
     val viewModel: StudyViewModel by viewModels()
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -50,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationView.setOnNavigationItemSelectedListener { item: MenuItem ->
             fragment = when(item.itemId) {
                 R.id.schedulerMenu -> CalendarFragment()
-                R.id.studyMenu -> StudyFragment()
+                R.id.studyMenu -> TimerFragment()
                 R.id.userMenu -> UserSettingsFragment()
                 R.id.Menu -> DBFragment() // TODO 추가기능
                 else -> StudyFragment()
