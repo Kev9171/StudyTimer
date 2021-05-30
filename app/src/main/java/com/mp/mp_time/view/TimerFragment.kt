@@ -70,10 +70,19 @@ class TimerFragment : Fragment() {
 
         if(binding!!.menualButton.isChecked) {
 
-            if (time == 0)
-                timerTask?.cancel()
+
 
             timerTask = timer(period = 1000) {
+
+                if (time == 0) {
+                    timerTask?.cancel()
+
+                    activity?.runOnUiThread {
+                        binding!!.play.setImageResource(R.drawable.ic_baseline_play_arrow_24)
+                    }
+                    iswork = false
+                }
+
                 time--
 
                 rate = maxtime - time
@@ -93,15 +102,26 @@ class TimerFragment : Fragment() {
                 }
 
 
+
             }
+
+
         }
 
         else if(binding!!.autoButton.isChecked) {
 
-            if (time == 0)
-                timerTask?.cancel()
+
 
             timerTask = timer(period = 1000) {
+
+                if (time == 0) {
+                    timerTask?.cancel()
+
+                    activity?.runOnUiThread {
+                        binding!!.play.setImageResource(R.drawable.ic_baseline_play_arrow_24)
+                    }
+                    iswork = false
+                }
 
                 if(study > 0) {
                     time--
