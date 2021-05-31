@@ -5,7 +5,6 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.mp.mp_time.data.Schedule
 import com.mp.mp_time.data.Subject
-import com.mp.mp_time.data.Test
 import com.mp.mp_time.database.SubjectDBHelper
 import com.mp.mp_time.database.ScheduleDBHelper
 
@@ -17,9 +16,7 @@ class StudyViewModel(application: Application) : AndroidViewModel(application) {
 
     // user subject list
     var subjectList = mutableListOf<Subject>()
-    val testList = mutableListOf<Test>()
-
-    var newTest: MutableLiveData<Test> = MutableLiveData()
+    var scheduleList = mutableListOf<Schedule>()
 
     // fragment translation
     val fragmentRequest: MutableLiveData<FragmentRequest> = MutableLiveData<FragmentRequest>()
@@ -35,9 +32,7 @@ class StudyViewModel(application: Application) : AndroidViewModel(application) {
 
 
         // 테스트를 위한 임시 값들
-
-        testList.add(Test("모프", 2021, 4,2))
-        testList.add(Test("운체", 2021, 5,15))
+        scheduleList = scheduleDBHelper.findAll() ?: mutableListOf()
 
 
         //insertSchedule(Schedule("2020-07-01", dDay = true, title = "모프 강의"))
@@ -48,6 +43,7 @@ class StudyViewModel(application: Application) : AndroidViewModel(application) {
     // Schedule DB 관련
     // 일정 추가
     fun insertSchedule(data: Schedule){
+        scheduleList.add(data)
         scheduleDBHelper.insertSchedule(data)
     }
 
@@ -98,11 +94,6 @@ class StudyViewModel(application: Application) : AndroidViewModel(application) {
             it.date == date
         }
         subjectDBHelper.deleteSubjectByName(date)
-    }
-
-    fun addTest(test: Test){
-        newTest.value = test
-        testList.add(test)
     }
 
     fun fragmentTranslationRequest(target: FragmentRequest){
