@@ -148,4 +148,39 @@ class SubjectDBHelper(
 
         return results
     }
+
+    // 해당 날짜의 과목에 대해 수정 사항 반영하기
+    fun updateSubject(subjectName: String, date: String, updateData: HashMap<String, Any>): Boolean {
+        // 먼저 해당 subject 가 존재하는지 확인
+        val selectSql = "select * from $TABLE_SUBJECT where $SUBNAME='$subjectName';"
+        val db = writableDatabase
+        val cursor = db.rawQuery(selectSql, null)
+
+        val flag = cursor.count != 0
+        if(flag) {
+            cursor.moveToFirst()
+            val values = ContentValues()
+            updateData.forEach {
+                val key = it.key
+                if(it.key == "ispage"){
+                    val value = it.value as Int
+                    values.put(key, value)
+                }else if(it.key == "goal"){
+                    val value = it.value as Int
+                    values.put(key, value)
+                }else if(it.key == "studytime"){
+                    val value = it.value as Float
+                    values.put(key, value)
+                }else if(it.key == "breaktime"){
+                    val value = it.value as Float
+                    values.put(key, value)
+                }
+            }
+            db.update(TABLE_SUBJECT, values, "$DATE=?", arrayOf(date))
+        }
+
+        cursor.close()
+        db.close()
+        return flag
+    }
 }

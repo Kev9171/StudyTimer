@@ -69,7 +69,9 @@ class ModifySubjectFragment : Fragment() {
             isPageSpinner.adapter = isPageAdapter
             isPageSpinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    isPage = position == 0 // 페이지 선택
+                    isPage = (position == 0) // 페이지 선택
+                    if(isPage) isPageTextView.text = "페이지"
+                    else isPageTextView.text = "시간"
                 }
                 override fun onNothingSelected(p0: AdapterView<*>?) {
                 }
@@ -107,9 +109,23 @@ class ModifySubjectFragment : Fragment() {
 
                 val date = LocalDateTime.now().format(DateTimeFormatter.ISO_DATE) // 오늘 날짜. 'yyyy-mm-dd' 형식
 
-
+                // 바뀐 정보를 Map 형태로 넣어서 업데이트
+                val updateData = HashMap<String, Any>()
+                if(isPage != subject.isPage){
+                    updateData["ispage"] = if(isPage) 1 else 0
+                }
+                if(inputGoalInt.text.toString().toInt() != subject.goalInt){
+                    updateData["goal"] = inputGoalInt.text.toString().toInt()
+                }
+                if(studyTime != newStudyTime){
+                    updateData["studytime"] = newStudyTime
+                }
+                if(breakTime != newBreakTime){
+                    updateData["breaktime"] = newBreakTime
+                }
                 // 과목 정보 수정
-                viewModel.updateSubject()
+                if(updateData.isNotEmpty())
+                    viewModel.updateSubject(subject.subName, date, updateData)
 
                 // fragment 종료
                 requireActivity().supportFragmentManager
@@ -122,7 +138,7 @@ class ModifySubjectFragment : Fragment() {
             // 과목 정보 삭제
             deleteBtn.setOnClickListener {
                 viewModel.deleteSubjectByName(subName = subject.subName)
-                Toast.makeText(requireContext(), "${subject.subName} 이 삭제되었습니다.", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(requireContext(), "${subject.subName} 이 삭제되었습니다.", Toast.LENGTH_SHORT).show()
 
                 // fragment 종료
                 requireActivity().supportFragmentManager

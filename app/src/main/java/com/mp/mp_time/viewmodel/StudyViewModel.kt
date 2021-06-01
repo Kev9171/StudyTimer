@@ -103,8 +103,33 @@ class StudyViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     // 과목 정보 수정
-    fun updateSubject() {
-        // subjectList.forEach {}
+    fun updateSubject(subjectName: String, date: String, updateData: HashMap<String, Any>) {
+        val newSubject = subjectList.find {
+            it.date == date
+        }!!
+
+        updateData.forEach {
+            val key = it.key
+            if(it.key == "ispage"){
+                val value = it.value as Int
+                newSubject.isPage = (value==1)
+            }else if(it.key == "goal"){
+                val value = it.value as Int
+                newSubject.goalInt = value
+            }else if(it.key == "studytime"){
+                val value = it.value as Float
+                newSubject.studyTime = value
+            }else if(it.key == "breaktime"){
+                val value = it.value as Float
+                newSubject.breakTime = value
+            }
+        }
+
+        val idx: Int = subjectList.indexOf(newSubject)
+        subjectList[idx] = newSubject
+
+        // DB 업데이트
+        subjectDBHelper.updateSubject(subjectName, date, updateData)
     }
 
     fun addTest(test: Test){

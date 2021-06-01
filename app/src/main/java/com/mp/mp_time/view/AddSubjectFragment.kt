@@ -52,6 +52,8 @@ class AddSubjectFragment : Fragment() {
             isPageSpinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     isPage = position == 0 // 페이지 선택
+                    if(isPage) isPageTextView.text = "페이지"
+                    else isPageTextView.text = "시간"
                 }
                 override fun onNothingSelected(p0: AdapterView<*>?) {
                 }
