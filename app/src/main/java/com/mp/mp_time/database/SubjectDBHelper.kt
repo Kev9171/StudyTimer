@@ -5,6 +5,7 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.util.Log
 import com.mp.mp_time.data.Subject
 
 class SubjectDBHelper(
@@ -104,6 +105,27 @@ class SubjectDBHelper(
         return results
     }
 
+    fun insertNewDate(date: String): MutableList<Subject>? {
+        Log.d("insertNew Date   ", "실행됨")
+        // 가장 최근 날짜를 받아와서 최신 과목 정보를 가져오기
+        val selectSql = "select * from $TABLE_SUBJECT order by $DATE desc limit 1;"
+        val db = readableDatabase
+        val cursor = db.rawQuery(selectSql, null)
+        val results: MutableList<Subject> = mutableListOf()
+        if(cursor.count != 0){
+            cursor.moveToFirst()
+            val lastDate = cursor.getString(5) // date 는 5
+            Log.d("DBHelper", "$lastDate")
+            findSubjectByDate(lastDate)?.forEach {
+                // 각 과목의 정보를 새 날짜로 저장하기
+                val newSubject = it.copy(date = date, achievedTime = "00:00:00")
+                results.add(newSubject)
+                insertSubject(newSubject)
+            }
+            return results
+        }
+        return null
+    }
 
     fun deleteSubjectByName(subject: String): Boolean {
         // 먼저 해당 subject 가 존재하는지 확인

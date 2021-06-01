@@ -3,6 +3,7 @@ package com.mp.mp_time.viewmodel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.mp.mp_time.data.Schedule
 import com.mp.mp_time.data.Subject
 import com.mp.mp_time.data.Test
@@ -130,6 +131,16 @@ class StudyViewModel(application: Application) : AndroidViewModel(application) {
 
         // DB 업데이트
         subjectDBHelper.updateSubject(subjectName, date, updateData)
+    }
+
+    fun insertNewDate(date: String) {
+        if(subjectDBHelper.findSubjectByDate(date) == null){
+            // 해당 date 에 대해 데이터 없으니, 생성
+            val results = subjectDBHelper.insertNewDate(date)
+            results?.forEach {
+                subjectList.add(it)
+            }
+        }
     }
 
     fun addTest(test: Test){
