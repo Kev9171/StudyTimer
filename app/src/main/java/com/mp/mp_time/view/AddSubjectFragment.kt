@@ -78,6 +78,13 @@ class AddSubjectFragment : Fragment() {
                     Toast.makeText(requireContext(), "과목명을 입력해주세요.", Toast.LENGTH_SHORT).show()
                 }
                 else {
+                    // 이미 등록한 과목인지 확인
+                    val checkSubject = viewModel.subjectList.find { it.subName == inputSubjectName.text.toString() }
+                    if(checkSubject != null) {
+                        Toast.makeText(requireContext(), "이미 등록한 과목입니다.", Toast.LENGTH_SHORT).show()
+                        return@setOnClickListener
+                    }
+
                     // 과목 등록
                     val studyTime: Float =
                             studyHourSpinner.selectedItem.toString().toInt() +
