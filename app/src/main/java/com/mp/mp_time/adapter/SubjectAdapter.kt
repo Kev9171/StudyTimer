@@ -3,6 +3,7 @@ package com.mp.mp_time.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import androidx.recyclerview.widget.RecyclerView
 import com.mp.mp_time.data.Subject
 import com.mp.mp_time.databinding.RowSubjectBinding
@@ -13,6 +14,7 @@ RecyclerView.Adapter<SubjectAdapter.ViewHolder>(){
 
     interface OnItemClickListener {
         fun onTimerClick(holder: ViewHolder, view: View, data: Subject, position: Int)
+        fun onLongClick(holder: ViewHolder, view: View, data: Subject, position: Int)
     }
 
     inner class ViewHolder(val binding: RowSubjectBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -26,6 +28,10 @@ RecyclerView.Adapter<SubjectAdapter.ViewHolder>(){
             }
             binding.startBtn.setOnClickListener {
                 itemClickListener?.onTimerClick(this, it, items[adapterPosition], adapterPosition)
+            }
+            binding.root.setOnLongClickListener {
+                itemClickListener?.onLongClick(this@ViewHolder, it, items[absoluteAdapterPosition], absoluteAdapterPosition)
+                true
             }
         }
     }

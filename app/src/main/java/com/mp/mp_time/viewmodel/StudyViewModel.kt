@@ -3,19 +3,26 @@ package com.mp.mp_time.viewmodel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.mp.mp_time.data.Schedule
 import com.mp.mp_time.data.Subject
 import com.mp.mp_time.database.SubjectDBHelper
 import com.mp.mp_time.database.ScheduleDBHelper
 
 enum class FragmentRequest {
-    REQUEST_SUBJECT, REQUEST_TIMER
+    REQUEST_SUBJECT, REQUEST_TIMER, REQUEST_MODIFY
 }
 
 class StudyViewModel(application: Application) : AndroidViewModel(application) {
 
     // user subject list
     var subjectList = mutableListOf<Subject>()
+    val testList = mutableListOf<Test>()
+
+    var timerSubjectNow : Subject? = null   // Timer 시작하는 과목 정보
+    var modifySubjectNow : Subject? = null   // 수정/삭제하려는 과목 정보
+    var newTest: MutableLiveData<Test> = MutableLiveData()
+
     var scheduleList = mutableListOf<Schedule>()
 
     // fragment translation
@@ -94,6 +101,51 @@ class StudyViewModel(application: Application) : AndroidViewModel(application) {
             it.date == date
         }
         subjectDBHelper.deleteSubjectByName(date)
+    }
+    
+    // 과목 정보 수정
+    fun updateSubject(subjectName: String, date: String, updateData: HashMap<String, Any>) {
+        val newSubject = subjectList.find {
+            it.date == date
+        }!!
+
+        updateData.forEach {
+            val key = it.key
+            if(it.key == "ispage"){
+                val value = it.value as Int
+                newSubject.isPage = (value==1)
+            }else if(it.key == "goal"){
+                val value = it.value as Int
+                newSubject.goalInt = value
+            }else if(it.key == "studytime"){
+                val value = it.value as Float
+                newSubject.studyTime = value
+            }else if(it.key == "breaktime"){
+                val value = it.value as Float
+                newSubject.breakTime = value
+            }
+        }
+
+        val idx: Int = subjectList.indexOf(newSubject)
+        subjectList[idx] = newSubject
+
+        // DB 업데이트
+        subjectDBHelper.updateSubject(subjectName, date, updateData)
+    }
+
+    fun insertNewDate(date: String) {
+        if(subjectDBHelper.findSubjectByDate(date) == null){
+            // 해당 date 에 대해 데이터 없으니, 생성
+            val results = subjectDBHelper.insertNewDate(date)
+            results?.forEach {
+                subjectList.add(it)
+            }
+        }
+    }
+
+    fun addTest(test: Test){
+        newTest.value = test
+        testList.add(test)
     }
 
     fun fragmentTranslationRequest(target: FragmentRequest){
