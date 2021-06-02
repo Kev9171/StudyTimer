@@ -17,11 +17,9 @@ class StudyViewModel(application: Application) : AndroidViewModel(application) {
 
     // user subject list
     var subjectList = mutableListOf<Subject>()
-    val testList = mutableListOf<Test>()
 
     var timerSubjectNow : Subject? = null   // Timer 시작하는 과목 정보
     var modifySubjectNow : Subject? = null   // 수정/삭제하려는 과목 정보
-    var newTest: MutableLiveData<Test> = MutableLiveData()
 
     var scheduleList = mutableListOf<Schedule>()
 
@@ -141,11 +139,6 @@ class StudyViewModel(application: Application) : AndroidViewModel(application) {
                 subjectList.add(it)
             }
         }
-    }
-
-    fun addTest(test: Test){
-        newTest.value = test
-        testList.add(test)
     }
 
     fun fragmentTranslationRequest(target: FragmentRequest){
