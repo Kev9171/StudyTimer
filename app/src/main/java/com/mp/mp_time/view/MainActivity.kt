@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -15,6 +16,7 @@ import com.mp.mp_time.R
 import com.mp.mp_time.databinding.ActivityMainBinding
 import com.mp.mp_time.viewmodel.FragmentRequest
 import com.mp.mp_time.viewmodel.StudyViewModel
+import java.util.*
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -28,6 +30,7 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
         unregisterReceiver(broadcastReceiver)
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -97,6 +100,18 @@ class MainActivity : AppCompatActivity() {
                     .commit()
             } ?: Log.e("ERROR", "Error:: can't make new fragment")
             true
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        val str = intent.getStringExtra("time")
+        if(str == "123")
+        {
+            supportFragmentManager.beginTransaction()
+                    .replace(R.id.mainContainer, TimerFragment())
+                    .commit()
         }
     }
 }
