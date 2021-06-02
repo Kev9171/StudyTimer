@@ -74,6 +74,7 @@ class MainActivity : AppCompatActivity() {
                 FragmentRequest.REQUEST_SUBJECT -> AddSubjectFragment()
                 FragmentRequest.REQUEST_TIMER -> TimerFragment()
                 FragmentRequest.REQUEST_MODIFY -> ModifySubjectFragment()
+                FragmentRequest.REQUEST_PLACE -> AddPlaceFragment()
             }
 
             val fragmentTranslation = supportFragmentManager.beginTransaction()

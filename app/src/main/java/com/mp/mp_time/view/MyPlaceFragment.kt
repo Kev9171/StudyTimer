@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.mp.mp_time.databinding.FragmentMyPlaceBinding
+import com.mp.mp_time.viewmodel.FragmentRequest
 import com.mp.mp_time.viewmodel.StudyViewModel
 
 class MyPlaceFragment : Fragment() {
@@ -23,5 +24,19 @@ class MyPlaceFragment : Fragment() {
     ): View {
         binding = FragmentMyPlaceBinding.inflate(layoutInflater, container, false)
         return binding!!.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        init()
+    }
+
+    private fun init() {
+        binding!!.apply {
+            addPlaceBtn.setOnClickListener {
+                viewModel.fragmentTranslationRequest(FragmentRequest.REQUEST_PLACE)
+            }
+        }
     }
 }

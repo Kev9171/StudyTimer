@@ -10,7 +10,7 @@ import com.mp.mp_time.database.SubjectDBHelper
 import com.mp.mp_time.database.ScheduleDBHelper
 
 enum class FragmentRequest {
-    REQUEST_SUBJECT, REQUEST_TIMER, REQUEST_MODIFY
+    REQUEST_SUBJECT, REQUEST_TIMER, REQUEST_MODIFY, REQUEST_PLACE
 }
 
 class StudyViewModel(application: Application) : AndroidViewModel(application) {
