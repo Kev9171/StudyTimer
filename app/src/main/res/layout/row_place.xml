@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:background="@drawable/box_yellow_outline"
+    android:background="@drawable/box_gray"
     android:layout_marginVertical="5dp"
     android:layout_margin="5dp"
     android:padding="10dp">
@@ -13,14 +13,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="장소 이름"
-        android:textSize="20dp"
+        android:textSize="15dp"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true" />
     <RatingBar
         android:id="@+id/ratingBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/Widget.AppCompat.RatingBar.Indicator"
+        style="@style/Widget.AppCompat.RatingBar.Small"
         android:layout_alignParentRight="true"
         android:numStars="5"/>
 </RelativeLayout>
