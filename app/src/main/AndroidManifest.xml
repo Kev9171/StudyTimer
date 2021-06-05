@@ -9,13 +9,34 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MPTIME">
-        <activity android:name=".view.MainActivity">
+
+        <activity android:name=".view.LoadingActivity"
+            android:theme="@style/Theme.Design.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".view.MainActivity"
+            android:launchMode="singleTop">
+
+        </activity>
+
+        <activity android:name=".view.SetThemeActivity">
+        </activity>
+
+        <activity android:name=".view.MusicPlayerActivity">
+        </activity>
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version"/>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="API_KEY"/>
+
     </application>
 
 </manifest>
