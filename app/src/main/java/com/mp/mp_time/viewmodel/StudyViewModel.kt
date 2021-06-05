@@ -10,18 +10,18 @@ import com.mp.mp_time.database.SubjectDBHelper
 import com.mp.mp_time.database.ScheduleDBHelper
 
 enum class FragmentRequest {
-    REQUEST_SUBJECT, REQUEST_TIMER, REQUEST_MODIFY
+    REQUEST_SUBJECT, REQUEST_TIMER, REQUEST_MODIFY, REQUEST_STUDY
 }
 
 class StudyViewModel(application: Application) : AndroidViewModel(application) {
 
     // user subject list
     var subjectList = mutableListOf<Subject>()
-    val testList = mutableListOf<Test>()
+    //val testList = mutableListOf<Test>()
 
     var timerSubjectNow : Subject? = null   // Timer 시작하는 과목 정보
     var modifySubjectNow : Subject? = null   // 수정/삭제하려는 과목 정보
-    var newTest: MutableLiveData<Test> = MutableLiveData()
+    //var newTest: MutableLiveData<Test> = MutableLiveData()
 
     var scheduleList = mutableListOf<Schedule>()
 
@@ -31,6 +31,16 @@ class StudyViewModel(application: Application) : AndroidViewModel(application) {
     // [SQLite] DB Helper
     private val scheduleDBHelper = ScheduleDBHelper(application)
     private val subjectDBHelper = SubjectDBHelper(application)
+
+
+    //타이머 상태
+    var time = 0
+    var maxtime = 0
+    var recreate = false
+    var isauto = false
+    var progress = 0
+    var backpressact = false
+    //////////////////////////////
 
 
     init {
@@ -143,10 +153,10 @@ class StudyViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun addTest(test: Test){
+    /*fun addTest(test: Test){
         newTest.value = test
         testList.add(test)
-    }
+    }*/
 
     fun fragmentTranslationRequest(target: FragmentRequest){
         fragmentRequest.value = target

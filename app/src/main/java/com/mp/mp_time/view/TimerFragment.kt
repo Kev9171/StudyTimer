@@ -13,21 +13,32 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModel
 import com.mp.mp_time.R
 import com.mp.mp_time.databinding.FragmentTimerBinding
+import com.mp.mp_time.viewmodel.FragmentRequest
 import com.mp.mp_time.viewmodel.StudyViewModel
+import kotlinx.coroutines.flow.callbackFlow
 import java.util.*
 import kotlin.concurrent.timer
 
-class TimerFragment : Fragment() {
+class TimerFragment : Fragment(){
+    private lateinit var callback: OnBackPressedCallback
     var binding: FragmentTimerBinding? = null
     val viewModel: StudyViewModel by activityViewModels()
     val inputtotalstudytime = 40
     val inputstudy = 10
     val inputrest = 10
+
+
+    private var floatact = false
+
+
+
 
     private var time = inputtotalstudytime
     private var study = inputstudy
@@ -36,12 +47,35 @@ class TimerFragment : Fragment() {
     private var timerTask : Timer? = null
     private var iswork  = false
     private var rate = 0
-    private val maxtime  = time
+    private var maxtime  = 0
 
     override fun onDestroyView() {
+
+
+        if(!floatact && !viewModel.backpressact) {
+            viewModel.recreate = true
+            viewModel.time = time
+            viewModel.maxtime = maxtime
+            viewModel.progress = rate
+        }
         super.onDestroyView()
         binding = null
+
+
     }
+
+
+
+
+
+    override fun onStop() {
+        super.onStop()
+
+
+    }
+
+
+
 
 
 
@@ -51,7 +85,35 @@ class TimerFragment : Fragment() {
     ): View {
         binding = FragmentTimerBinding.inflate(layoutInflater, container, false)
 
-        binding!!.graph.max = time
+
+        viewModel.backpressact = false
+        floatact = false
+
+        time = (viewModel.timerSubjectNow!!.studyTime * 10).toInt()
+        maxtime = time
+
+
+
+
+
+        if(viewModel.recreate){
+            time = viewModel.time
+            if(viewModel.isauto){
+                binding!!.autoButton.isChecked = true
+            }
+            else{
+                binding!!.menualButton.isChecked = true
+            }
+            binding!!.graph.progress = viewModel.progress
+        }
+
+
+
+
+
+        binding!!.textView5.text = viewModel.timerSubjectNow!!.subName
+
+        binding!!.graph.max = maxtime
 
         binding!!.countdown.text = "${String.format("%02d", time / 60)} : ${String.format("%02d", time % 60)}"
 
@@ -70,6 +132,12 @@ class TimerFragment : Fragment() {
 
         }
 
+        binding!!.floatingActionButton.setOnClickListener {
+            viewModel.recreate = false
+            floatact = true
+            viewModel.fragmentTranslationRequest(FragmentRequest.REQUEST_STUDY)
+        }
+
 
 
         return binding!!.root
@@ -83,6 +151,9 @@ class TimerFragment : Fragment() {
 
         if(binding!!.menualButton.isChecked) {
 
+            viewModel.isauto = false
+
+            binding!!.resttime.text = ""
 
 
             timerTask = timer(period = 1000) {
@@ -96,49 +167,9 @@ class TimerFragment : Fragment() {
                     iswork = false
                 }
 
-                time--
-
-                rate = maxtime - time
-
-
-                var sec = time % 60
-                var min = time / 60
-
-
-
-
-                activity?.runOnUiThread {
-
-                    binding!!.countdown.text = "${String.format("%02d", min)} : ${String.format("%02d", sec)}"
-                    binding!!.graph.progress = rate
-
-                }
-
-
-
-            }
-
-
-        }
-
-        else if(binding!!.autoButton.isChecked) {
-
-
-
-            timerTask = timer(period = 1000) {
-
-                if (time == 0) {
-                    stopTimer()
-
-                    activity?.runOnUiThread {
-                        binding!!.play.setImageResource(R.drawable.ic_baseline_play_arrow_24)
-                    }
-                    iswork = false
-                }
-
-                if(study > 0) {
+                else {
                     time--
-                    study--
+
                     rate = maxtime - time
 
 
@@ -154,29 +185,72 @@ class TimerFragment : Fragment() {
                         binding!!.graph.progress = rate
 
                     }
+                }
 
+
+
+            }
+
+
+        }
+
+        else if(binding!!.autoButton.isChecked) {
+
+            viewModel.isauto = true
+
+            timerTask = timer(period = 1000) {
+
+                if (time == 0) {
+                    stopTimer()
+
+                    activity?.runOnUiThread {
+                        binding!!.play.setImageResource(R.drawable.ic_baseline_play_arrow_24)
+                    }
+                    iswork = false
                 }
 
                 else {
 
-                    rest--
-                    activity?.runOnUiThread {
+                    if (study > 0) {
+                        time--
+                        study--
+                        rate = maxtime - time
 
-                        binding!!.resttime.text = "남은 휴식 시간 : ${String.format("%02d", rest / 60)} : ${String.format("%02d", rest % 60)}"
 
-                    }
+                        var sec = time % 60
+                        var min = time / 60
 
-                    if(rest == 0){
 
-                        study = inputstudy
-                        rest = inputrest
+
+
                         activity?.runOnUiThread {
 
-                            binding!!.resttime.text = ""
+                            binding!!.countdown.text = "${String.format("%02d", min)} : ${String.format("%02d", sec)}"
+                            binding!!.graph.progress = rate
 
                         }
 
+                    } else {
 
+                        rest--
+                        activity?.runOnUiThread {
+
+                            binding!!.resttime.text = "남은 휴식 시간 : ${String.format("%02d", rest / 60)} : ${String.format("%02d", rest % 60)}"
+
+                        }
+
+                        if (rest == 0) {
+
+                            study = inputstudy
+                            rest = inputrest
+                            activity?.runOnUiThread {
+
+                                binding!!.resttime.text = ""
+
+                            }
+
+
+                        }
                     }
                 }
 
@@ -203,9 +277,19 @@ class TimerFragment : Fragment() {
             iswork = false
         }
 
-        makeNotification()
+
+
+        if(!floatact && !viewModel.backpressact) {
+            viewModel.recreate = true
+            viewModel.time = time
+            viewModel.maxtime = maxtime
+            viewModel.progress = rate
+            makeNotification()
+        }
 
     }
+
+
 
     fun makeNotification(){
         //알림발생
@@ -239,6 +323,9 @@ class TimerFragment : Fragment() {
         manager.notify(10, Notification)
 
     }
+
+
+
 
 
 

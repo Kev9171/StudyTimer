@@ -25,11 +25,14 @@ class MainActivity : AppCompatActivity() {
     var fragment: Fragment? = null
     val viewModel: StudyViewModel by viewModels()
     lateinit var broadcastReceiver: BroadcastReceiver
+    var backkeypress:Long = 0
 
     override fun onDestroy() {
         super.onDestroy()
         unregisterReceiver(broadcastReceiver)
     }
+
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,6 +77,7 @@ class MainActivity : AppCompatActivity() {
                 FragmentRequest.REQUEST_SUBJECT -> AddSubjectFragment()
                 FragmentRequest.REQUEST_TIMER -> TimerFragment()
                 FragmentRequest.REQUEST_MODIFY -> ModifySubjectFragment()
+                FragmentRequest.REQUEST_STUDY -> StudyFragment()
             }
 
             val fragmentTranslation = supportFragmentManager.beginTransaction()
@@ -106,7 +110,13 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        val str = intent.getStringExtra("time")
+
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+
+        val str = intent!!.getStringExtra("time")
         if(str == "123")
         {
             supportFragmentManager.beginTransaction()
@@ -114,4 +124,31 @@ class MainActivity : AppCompatActivity() {
                     .commit()
         }
     }
+
+    override fun onBackPressed() {
+
+
+        val fragment = supportFragmentManager.findFragmentById(R.id.mainContainer)
+
+        if(fragment is TimerFragment) {
+
+            if(System.currentTimeMillis() - backkeypress >= 2000) {
+                backkeypress = System.currentTimeMillis()
+                Toast.makeText(this, "한번 더 클릭시 타이머 종료", Toast.LENGTH_SHORT).show()
+            }
+            else{
+                Toast.makeText(this, "타이머 종료", Toast.LENGTH_SHORT).show()
+                viewModel.recreate = false
+                viewModel.backpressact = true
+                viewModel.fragmentTranslationRequest(FragmentRequest.REQUEST_STUDY)
+
+            }
+
+        }
+        else
+            super.onBackPressed()
+
+    }
+
+
 }
