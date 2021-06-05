@@ -71,7 +71,8 @@ class TimerFragment : Fragment(){
     override fun onStop() {
         super.onStop()
 
-
+        viewModel.timeused = maxtime - time
+        Toast.makeText(requireActivity(), viewModel.timeused.toString() + "초 경과", Toast.LENGTH_SHORT).show()
     }
 
 
