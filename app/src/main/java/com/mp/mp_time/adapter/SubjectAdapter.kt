@@ -36,6 +36,11 @@ RecyclerView.Adapter<SubjectAdapter.ViewHolder>(){
         }
     }
 
+    fun changeItems(newItems: MutableList<Subject>) {
+        items = newItems
+        notifyDataSetChanged()
+    }
+
     fun showDetails(viewHolder: ViewHolder, pos: Int) {
         if(viewHolder.binding.subjectDetails.visibility == View.VISIBLE){
             viewHolder.binding.subjectDetails.visibility = View.GONE

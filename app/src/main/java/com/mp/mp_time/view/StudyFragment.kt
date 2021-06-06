@@ -16,6 +16,8 @@ import com.mp.mp_time.data.Subject
 import com.mp.mp_time.databinding.FragmentStudyBinding
 import com.mp.mp_time.viewmodel.FragmentRequest
 import com.mp.mp_time.viewmodel.StudyViewModel
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class StudyFragment : Fragment() {
     var binding: FragmentStudyBinding? = null
@@ -37,13 +39,23 @@ class StudyFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val date = LocalDateTime.now().format(DateTimeFormatter.ISO_DATE) // 오늘 날짜. 'yyyy-mm-dd' 형식
+        viewModel.findTodaySubjects(date)
+
         init()
+        initViewModel()
+    }
+
+    private fun initViewModel() {
+        viewModel.todaySubjectList.observe(viewLifecycleOwner) {
+            adapter.changeItems(it)
+        }
     }
 
     private fun init() {
         binding!!.apply {
             subjectRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            adapter = SubjectAdapter(viewModel.subjectList)
+            adapter = SubjectAdapter(mutableListOf())
 
             val simpleCallBack = object: ItemTouchHelper.SimpleCallback(
                     ItemTouchHelper.DOWN or ItemTouchHelper.UP,
