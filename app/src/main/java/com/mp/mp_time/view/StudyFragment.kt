@@ -84,7 +84,7 @@ class StudyFragment : Fragment() {
                     //Toast.makeText(requireContext(), "Timer 시작", Toast.LENGTH_SHORT).show()
                 }
 
-                override fun onLongClick(
+                override fun onItemClick(
                     holder: SubjectAdapter.ViewHolder,
                     view: View,
                     data: Subject,
