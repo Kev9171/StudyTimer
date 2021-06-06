@@ -8,6 +8,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.mp.mp_time.data.Place
 import com.mp.mp_time.data.Schedule
 import com.mp.mp_time.data.Subject
+import com.mp.mp_time.database.PlaceDBHelper
 import com.mp.mp_time.database.SubjectDBHelper
 import com.mp.mp_time.database.ScheduleDBHelper
 
@@ -36,6 +37,7 @@ class StudyViewModel(application: Application) : AndroidViewModel(application) {
     // [SQLite] DB Helper
     private val scheduleDBHelper = ScheduleDBHelper(application)
     private val subjectDBHelper = SubjectDBHelper(application)
+    private val placeDBHelper = PlaceDBHelper(application)
 
 
     init {
@@ -45,6 +47,8 @@ class StudyViewModel(application: Application) : AndroidViewModel(application) {
 
         // 테스트를 위한 임시 값들
         scheduleList = scheduleDBHelper.findAll() ?: mutableListOf()
+
+        placeList = placeDBHelper.findAll() ?: mutableListOf()
 
 
         //insertSchedule(Schedule("2020-07-01", dDay = true, title = "모프 강의"))
@@ -146,6 +150,38 @@ class StudyViewModel(application: Application) : AndroidViewModel(application) {
                 subjectList.add(it)
             }
         }
+    }
+
+    // Place DB 관련
+
+    fun insertPlace(data: Place){
+        placeList.add(data)
+        placeDBHelper.insertPlace(data)
+    }
+
+    // 이름으로 장소 찾기
+    fun getPlaceByName(name: String): MutableList<Place>? {
+        return placeDBHelper.findPlaceByName(name)
+    }
+
+    // 위치로 장소 찾기
+    fun getPlaceByLocation(location: LatLng): MutableList<Place>? {
+        return placeDBHelper.findPlaceByLocation(location)
+    }
+
+    // 이름으로 장소 지우기
+    fun deletePlaceByName(name: String): Boolean {
+        return placeDBHelper.deletePlaceByName(name)
+    }
+
+    // 해당 날짜의 일정 모두 지우기
+    fun deletePlaceByLocation(location: LatLng): Boolean {
+        return deletePlaceByLocation(location)
+    }
+
+    // 저장되어 있는 일정 모두 찾기기
+    fun findAllPlace(): MutableList<Place>? {
+        return placeDBHelper.findAll()
     }
 
     fun fragmentTranslationRequest(target: FragmentRequest){
