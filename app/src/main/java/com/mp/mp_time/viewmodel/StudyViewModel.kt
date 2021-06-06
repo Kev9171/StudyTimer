@@ -4,6 +4,8 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.google.android.gms.maps.model.LatLng
+import com.mp.mp_time.data.Place
 import com.mp.mp_time.data.Schedule
 import com.mp.mp_time.data.Subject
 import com.mp.mp_time.database.SubjectDBHelper
@@ -21,7 +23,12 @@ class StudyViewModel(application: Application) : AndroidViewModel(application) {
     var timerSubjectNow : Subject? = null   // Timer 시작하는 과목 정보
     var modifySubjectNow : Subject? = null   // 수정/삭제하려는 과목 정보
 
+
+    var AddPlaceNow : Place  = Place("", LatLng(0.0, 0.0), "", 0.0f)
+
     var scheduleList = mutableListOf<Schedule>()
+
+    var placeList = mutableListOf<Place>()
 
     // fragment translation
     val fragmentRequest: MutableLiveData<FragmentRequest> = MutableLiveData<FragmentRequest>()

@@ -28,6 +28,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/PlaceText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
@@ -78,10 +79,10 @@
                     android:layout_alignParentRight="true" />
             </RelativeLayout>
 
-            <fragment
-                android:id="@+id/addPlaceMap"
+            <FrameLayout
+                android:id="@+id/map"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="300dp"/>
                 android:name="com.google.android.gms.maps.SupportMapFragment"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="10dp"
@@ -118,7 +119,9 @@
                 android:layout_height="wrap_content"
                 style="@style/Widget.AppCompat.RatingBar.Indicator"
                 android:layout_alignParentRight="true"
+                android:isIndicator="false"
                 android:numStars="5"
+                android:stepSize="0.5"
                 android:layout_marginLeft="30dp"/>
 
             <Button

@@ -18,6 +18,7 @@ import com.mp.mp_time.viewmodel.StudyViewModel
 class MyPlaceFragment : Fragment() {
     var binding: FragmentMyPlaceBinding? = null
     val viewModel: StudyViewModel by activityViewModels()
+    lateinit var adapter:MyPlaceAdapter
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -40,12 +41,20 @@ class MyPlaceFragment : Fragment() {
     private fun init() {
         binding!!.apply {
             placeRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            val adapter = MyPlaceAdapter(mutableListOf())
+            adapter = MyPlaceAdapter(viewModel.placeList)
 
             // test data
             adapter.addItem(Place("도서관", LatLng(10.0,10.0), "", 4.2f))
             adapter.addItem(Place("스터디 카페", LatLng(10.0,10.0), "", 3.0f))
             adapter.addItem(Place("1917", LatLng(10.0,10.0), "", 5.0f))
+
+            adapter.itemClickListener = object : MyPlaceAdapter.OnItemClickListener{
+                override fun onItemClick(holder: MyPlaceAdapter.ViewHolder, view: View, data: Place, position: Int) {
+                    TODO("Not yet implemented")
+                    // 클릭시 지도에 보여주기
+                }
+
+            }
 
             placeRecyclerView.adapter = adapter
 
