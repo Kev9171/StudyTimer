@@ -27,7 +27,7 @@
         android:padding="10dp"
         android:textColor="@color/white"/>
 
-    <fragment
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/map"
         android:layout_width="match_parent"
         android:layout_height="0dp"

@@ -28,6 +28,8 @@ class AddPlaceFragment : Fragment(){
     var lng : Double = 0.0
     lateinit var geocoder: Geocoder
     lateinit var mapFragment: SupportMapFragment
+    lateinit var googleMap: GoogleMap
+    lateinit var option: MarkerOptions
 
 
     override fun onDestroyView() {
@@ -43,11 +45,12 @@ class AddPlaceFragment : Fragment(){
 
 
 
+
         geocoder = Geocoder(requireActivity())
 
 
 
-        
+        binding!!.map
 
 
         binding!!.apply {
@@ -68,7 +71,7 @@ class AddPlaceFragment : Fragment(){
 
                     //지도에 마커로 보여주기
 
-                    /*init()*/
+                    init()
 
 
 
@@ -133,20 +136,23 @@ class AddPlaceFragment : Fragment(){
 
 
 
-        /*val mapFragment = this.childFragmentManager.findFragmentById(binding!!.map.id) as SupportMapFragment
+        mapFragment = childFragmentManager.findFragmentById(binding!!.map.id) as SupportMapFragment
         mapFragment.getMapAsync {
             googleMap = it
-            val option = MarkerOptions()
 
-            option.position(LatLng(34.665731, 135.432746))
+            googleMap.clear()
+
+            option = MarkerOptions()
+
+            option.position(LatLng(lat, lng))
 
             option.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
 
             googleMap.addMarker(option)
 
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(34.665731, 135.432746), 16.0f))
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(lat, lng), 16.0f))
 
-        }*/
+        }
 
 
 
