@@ -24,6 +24,9 @@ class StudyViewModel(application: Application) : AndroidViewModel(application) {
     var timerSubjectNow : Subject? = null   // Timer 시작하는 과목 정보
     var modifySubjectNow : Subject? = null   // 수정/삭제하려는 과목 정보
 
+
+    var AddPlaceNow : Place  = Place("", LatLng(0.0, 0.0), "", 0.0f)
+
     var scheduleList = mutableListOf<Schedule>()
 
     var placeList = mutableListOf<Place>()

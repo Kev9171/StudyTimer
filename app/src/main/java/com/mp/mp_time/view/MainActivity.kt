@@ -107,12 +107,6 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        val str = intent.getStringExtra("time")
-        if(str == "123")
-        {
-            supportFragmentManager.beginTransaction()
-                    .replace(R.id.mainContainer, TimerFragment())
-                    .commit()
-        }
+
     }
 }
