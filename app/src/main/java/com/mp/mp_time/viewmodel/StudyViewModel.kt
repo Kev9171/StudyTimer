@@ -35,6 +35,8 @@ class StudyViewModel(application: Application) : AndroidViewModel(application) {
 
     //타이머 상태
     var time = 0
+    var studytime = 0
+    var resttime = 0
     var maxtime = 0
     var recreate = false
     var isauto = false

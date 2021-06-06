@@ -7,6 +7,9 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.media.Ringtone
+import android.media.RingtoneManager
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -49,6 +52,10 @@ class TimerFragment : Fragment(){
     private var rate = 0
     private var maxtime  = 0
 
+    private var hour = 0
+    private var min = 0
+    private var sec = 0
+
     override fun onDestroyView() {
 
 
@@ -57,6 +64,8 @@ class TimerFragment : Fragment(){
             viewModel.time = time
             viewModel.maxtime = maxtime
             viewModel.progress = rate
+            viewModel.resttime = rest
+            viewModel.studytime = study
         }
         super.onDestroyView()
         binding = null
@@ -90,7 +99,8 @@ class TimerFragment : Fragment(){
         viewModel.backpressact = false
         floatact = false
 
-        time = (viewModel.timerSubjectNow!!.studyTime * 10).toInt()
+        time = viewModel.timerSubjectNow!!.studyTime.toInt() * 3600 + ((viewModel.timerSubjectNow!!.studyTime - viewModel.timerSubjectNow!!.studyTime.toInt() ) * 6000).toInt()
+        rest = viewModel.timerSubjectNow!!.breakTime.toInt() * 3600 + ((viewModel.timerSubjectNow!!.breakTime - viewModel.timerSubjectNow!!.breakTime.toInt() ) * 6000).toInt()
         maxtime = time
 
 
@@ -99,6 +109,10 @@ class TimerFragment : Fragment(){
 
         if(viewModel.recreate){
             time = viewModel.time
+            maxtime = viewModel.maxtime
+            rest = viewModel.resttime
+            study = viewModel.studytime
+
             if(viewModel.isauto){
                 binding!!.autoButton.isChecked = true
             }
@@ -112,11 +126,17 @@ class TimerFragment : Fragment(){
 
 
 
+
         binding!!.textView5.text = viewModel.timerSubjectNow!!.subName
 
         binding!!.graph.max = maxtime
 
-        binding!!.countdown.text = "${String.format("%02d", time / 60)} : ${String.format("%02d", time % 60)}"
+        min = time / 60
+        hour = min / 60
+        sec = time % 60
+        min %= 60
+
+        binding!!.countdown.text = "${String.format("%02d", hour)} : ${String.format("%02d", min)} : ${String.format("%02d", sec)}"
 
         binding!!.play.setOnClickListener {
 
@@ -136,6 +156,7 @@ class TimerFragment : Fragment(){
         binding!!.floatingActionButton.setOnClickListener {
             viewModel.recreate = false
             floatact = true
+            requireActivity().supportFragmentManager.popBackStack()
             viewModel.fragmentTranslationRequest(FragmentRequest.REQUEST_STUDY)
         }
 
@@ -174,15 +195,17 @@ class TimerFragment : Fragment(){
                     rate = maxtime - time
 
 
-                    var sec = time % 60
-                    var min = time / 60
+                    min = time / 60
+                    hour = min / 60
+                    sec = time % 60
+                    min %= 60
 
 
 
 
                     activity?.runOnUiThread {
 
-                        binding!!.countdown.text = "${String.format("%02d", min)} : ${String.format("%02d", sec)}"
+                        binding!!.countdown.text = "${String.format("%02d", hour)} : ${String.format("%02d", min)} : ${String.format("%02d", sec)}"
                         binding!!.graph.progress = rate
 
                     }
@@ -218,32 +241,45 @@ class TimerFragment : Fragment(){
                         rate = maxtime - time
 
 
-                        var sec = time % 60
-                        var min = time / 60
+                        min = time / 60
+                        hour = min / 60
+                        sec = time % 60
+                        min %= 60
 
 
 
 
                         activity?.runOnUiThread {
 
-                            binding!!.countdown.text = "${String.format("%02d", min)} : ${String.format("%02d", sec)}"
+                            binding!!.countdown.text = "${String.format("%02d", hour)} : ${String.format("%02d", min)} : ${String.format("%02d", sec)}"
                             binding!!.graph.progress = rate
 
                         }
 
                     } else {
 
+                        if(rest == viewModel.timerSubjectNow!!.breakTime.toInt() * 3600 + ((viewModel.timerSubjectNow!!.breakTime - viewModel.timerSubjectNow!!.breakTime.toInt() ) * 6000).toInt()){
+                            val notification: Uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+                            val r1 : Ringtone = RingtoneManager.getRingtone(requireActivity(), notification)
+                            r1.play()
+                        }
                         rest--
+
+                        min = rest / 60
+                        hour = min / 60
+                        sec = rest % 60
+                        min %= 60
+
                         activity?.runOnUiThread {
 
-                            binding!!.resttime.text = "남은 휴식 시간 : ${String.format("%02d", rest / 60)} : ${String.format("%02d", rest % 60)}"
+                            binding!!.resttime.text = "남은 휴식 시간 : ${String.format("%02d", hour)} : ${String.format("%02d", min)} : ${String.format("%02d", sec)}"
 
                         }
 
                         if (rest == 0) {
 
                             study = inputstudy
-                            rest = inputrest
+                            rest = viewModel.timerSubjectNow!!.breakTime.toInt() * 3600 + ((viewModel.timerSubjectNow!!.breakTime - viewModel.timerSubjectNow!!.breakTime.toInt() ) * 6000).toInt()
                             activity?.runOnUiThread {
 
                                 binding!!.resttime.text = ""
