@@ -147,9 +147,9 @@
         <LinearLayout
             android:id="@+id/displaySchedule"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="?colorSurface"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:background="@drawable/box_blue_outline"
             android:visibility="gone">
 
             <TextView
@@ -160,7 +160,6 @@
                 android:layout_marginHorizontal="2dp"
                 android:layout_marginVertical="10dp"
                 android:text=""
-                android:background="@drawable/box_purple"
                 android:textSize="20dp" />
 
             <TextView
@@ -171,18 +170,16 @@
                 android:layout_marginVertical="10dp"
                 android:gravity="center"
                 android:text=""
-                android:background="@drawable/box_purple"
                 android:textSize="20dp" />
 
             <TextView
                 android:id="@+id/scheduleContent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="2dp"
-                android:layout_marginVertical="10dp"
                 android:gravity="center"
                 android:text=""
-                android:background="@drawable/box_purple"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginVertical="5dp"
                 android:textSize="20dp" />
         </LinearLayout>
 
