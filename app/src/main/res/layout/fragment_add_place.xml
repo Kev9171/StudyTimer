@@ -45,6 +45,7 @@
                 android:layout_marginTop="10dp"
                 android:background="@android:color/transparent"
                 android:hint="장소 이름을 입력하세요 ex. 도서관, 카페 ..."
+                android:textColorHint="@color/base_gray"
                 android:textSize="20dp" />
             <TextView
                 android:layout_width="wrap_content"
@@ -67,6 +68,7 @@
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     android:hint="ex. 능동로 120"
+                    android:textColorHint="@color/base_gray"
                     android:layout_centerVertical="true"
                     android:textSize="20dp" />
                 <Button
@@ -103,6 +105,7 @@
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="10dp"
                 android:background="@android:color/transparent"
+                android:textColorHint="@color/base_gray"
                 android:hint="장소에 대한 한 줄 평가를 작성해주세요."
                 android:textSize="20dp" />
             <TextView
