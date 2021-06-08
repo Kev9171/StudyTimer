@@ -20,6 +20,7 @@ import java.util.*
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
+
 class MainActivity : AppCompatActivity() {
     private val binding: ActivityMainBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     var fragment: Fragment? = null
@@ -31,9 +32,6 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
         unregisterReceiver(broadcastReceiver)
     }
-
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,6 +76,7 @@ class MainActivity : AppCompatActivity() {
                 FragmentRequest.REQUEST_TIMER -> TimerFragment()
                 FragmentRequest.REQUEST_MODIFY -> ModifySubjectFragment()
                 FragmentRequest.REQUEST_STUDY -> StudyFragment()
+                FragmentRequest.REQUEST_PLACE -> AddPlaceFragment()
             }
 
             val fragmentTranslation = supportFragmentManager.beginTransaction()
@@ -95,7 +94,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.schedulerMenu -> CalendarFragment()
                 R.id.studyMenu -> StudyFragment()
                 R.id.userMenu -> UserSettingsFragment()
-                R.id.Menu -> DBFragment() // TODO 추가기능
+                R.id.Menu -> MyPlaceFragment()
                 else -> StudyFragment()
             }
             fragment?.let { fragment ->
@@ -109,8 +108,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-
-
     }
 
     override fun onNewIntent(intent: Intent?) {

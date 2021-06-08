@@ -117,6 +117,7 @@ class TimerFragment : Fragment(){
 
         binding!!.countdown.text = "${String.format("%02d", time / 60)} : ${String.format("%02d", time % 60)}"
 
+
         binding!!.play.setOnClickListener {
 
             if (iswork == false){
