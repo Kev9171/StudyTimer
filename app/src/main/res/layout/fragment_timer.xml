@@ -72,6 +72,8 @@
             android:id="@+id/autoButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="?colorOnPrimary"
+            android:buttonTint="?colorPrimary"
             android:text="자동" />
 
         <RadioButton
@@ -79,6 +81,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:checked="true"
+            android:buttonTint="?colorPrimary"
+            android:textColor="?colorOnPrimary"
             android:text="수동" />
     </RadioGroup>
 

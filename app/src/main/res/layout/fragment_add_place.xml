@@ -13,8 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="20dp"
-        android:text="공부 장속 등록"
-        android:textColor="@color/white"
+        android:text="공부 장소 등록"
         android:textSize="20dp" />
 
     <ScrollView
@@ -34,7 +33,6 @@
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginStart="30dp"
                 android:text="장소 이름"
-                android:textColor="@color/white"
                 android:textSize="20dp" />
 
             <EditText
@@ -54,7 +52,6 @@
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="10dp"
                 android:text="주소"
-                android:textColor="@color/white"
                 android:textSize="20dp" />
 
             <RelativeLayout
@@ -96,7 +93,6 @@
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="10dp"
                 android:text="한 줄 평가"
-                android:textColor="@color/white"
                 android:textSize="20dp" />
             <EditText
                 android:id="@+id/inputComment"
@@ -114,7 +110,6 @@
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="10dp"
                 android:text="나만의 별점"
-                android:textColor="@color/white"
                 android:textSize="20dp" />
             <RatingBar
                 android:id="@+id/ratingBar"
