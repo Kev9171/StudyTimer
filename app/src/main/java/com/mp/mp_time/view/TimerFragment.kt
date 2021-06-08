@@ -44,7 +44,7 @@ class TimerFragment : Fragment(){
 
 
     private var time = inputtotalstudytime
-    private var study = inputstudy
+    private var study = 60
     private var rest  = inputrest
 
     private var timerTask : Timer? = null
@@ -81,6 +81,7 @@ class TimerFragment : Fragment(){
         super.onStop()
 
         viewModel.timeused = maxtime - time
+
         Toast.makeText(requireActivity(), viewModel.timeused.toString() + "초 경과", Toast.LENGTH_SHORT).show()
     }
 
@@ -172,6 +173,7 @@ class TimerFragment : Fragment(){
     private fun startTimer() {
 
         if(binding!!.menualButton.isChecked) {
+
 
             viewModel.isauto = false
 

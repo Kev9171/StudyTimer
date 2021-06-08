@@ -42,7 +42,7 @@ class StudyViewModel(application: Application) : AndroidViewModel(application) {
     var isauto = false
     var progress = 0
     var backpressact = false
-    var timeused = 0  //단위 초
+    var timeused = 0  // 타이머에서 사용한 시간(초)
     //////////////////////////////
 
 
