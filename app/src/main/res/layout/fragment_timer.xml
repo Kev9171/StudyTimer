@@ -23,10 +23,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="3dp"
         android:layout_marginBottom="17dp"
-        android:background="@color/yellow_500"
+        android:background="?colorPrimary"
         android:clickable="true"
         android:src="@android:drawable/ic_media_play"
-        app:backgroundTint="@color/yellow_500"
+        app:backgroundTint="?colorPrimary"
         app:layout_constraintBottom_toTopOf="@+id/automanual"
         app:layout_constraintStart_toStartOf="@+id/automanual" />
 
@@ -72,6 +72,8 @@
             android:id="@+id/autoButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="?colorOnPrimary"
+            android:buttonTint="?colorPrimary"
             android:text="자동" />
 
         <RadioButton
@@ -79,6 +81,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:checked="true"
+            android:buttonTint="?colorPrimary"
+            android:textColor="?colorOnPrimary"
             android:text="수동" />
     </RadioGroup>
 

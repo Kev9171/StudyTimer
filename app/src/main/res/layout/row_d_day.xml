@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@drawable/box_purple"
+    android:background="@drawable/box_blue_outline"
+    android:layout_marginHorizontal="10dp"
     android:layout_marginVertical="5dp">
 
     <RelativeLayout
@@ -20,7 +21,6 @@
             android:layout_height="wrap_content"
             android:text="과목명"
             android:textSize="20dp"
-            android:textColor="@color/white"
             android:layout_centerVertical="true" />
         <TextView
             android:id="@+id/testDate"
@@ -28,7 +28,6 @@
             android:layout_height="wrap_content"
             android:text=""
             android:textSize="20dp"
-            android:textColor="@color/white"
             android:layout_centerInParent="true"
             android:layout_centerVertical="true" />
     </RelativeLayout>
