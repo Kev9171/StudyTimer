@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
+    android:background="?colorSurface"
     tools:context=".view.CalendarFragment"
     android:orientation="vertical">
 
@@ -19,7 +19,6 @@
         android:gravity="center"
         android:text="D-day 캘린더"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold" />
 
@@ -27,9 +26,11 @@
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/dark_background"
-        android:focusedMonthDateColor="@color/black"
-        android:unfocusedMonthDateColor="@color/white" />
+        android:dateTextAppearance="@color/white"
+        android:weekDayTextAppearance="?colorPrimary"
+        android:background="@drawable/box_blue"
+        android:layout_margin="10dp"
+        />
 
     <LinearLayout
         android:id="@+id/addSchedule"
@@ -49,12 +50,12 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="일정이름: "
-                android:textColor="@color/white"
                 android:textSize="20dp" />
 
             <EditText
                 android:id="@+id/nameEdit"
                 android:layout_width="0dp"
+                android:textColor="?colorOnPrimary"
                 android:layout_height="wrap_content"
                 android:layout_weight="3" />
         </LinearLayout>
@@ -70,12 +71,12 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="상세일정: "
-                android:textColor="@color/white"
                 android:textSize="20dp" />
 
             <EditText
                 android:id="@+id/scheduleEdit"
                 android:layout_width="0dp"
+                android:textColor="?colorOnPrimary"
                 android:layout_height="wrap_content"
                 android:layout_weight="3" />
         </LinearLayout>
@@ -136,7 +137,7 @@
             android:id="@+id/displaySchedule"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/dark_background"
+            android:background="?colorSurface"
             android:orientation="vertical"
             android:visibility="gone">
 
@@ -146,7 +147,6 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text=""
-                android:textColor="@color/white"
                 android:background="@drawable/box_purple"
                 android:textSize="20dp" />
 
@@ -156,7 +156,6 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text=""
-                android:textColor="@color/white"
                 android:background="@drawable/box_purple"
                 android:textSize="20dp" />
 
@@ -166,7 +165,6 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text=""
-                android:textColor="@color/white"
                 android:background="@drawable/box_purple"
                 android:textSize="20dp" />
         </LinearLayout>
