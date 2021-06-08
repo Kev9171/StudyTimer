@@ -24,6 +24,7 @@ class StudyViewModel(application: Application) : AndroidViewModel(application) {
     //var newTest: MutableLiveData<Test> = MutableLiveData()
 
     var scheduleList = mutableListOf<Schedule>()
+    var todaySubjectList = MutableLiveData<MutableList<Subject>>()
 
     // fragment translation
     val fragmentRequest: MutableLiveData<FragmentRequest> = MutableLiveData<FragmentRequest>()
@@ -94,12 +95,17 @@ class StudyViewModel(application: Application) : AndroidViewModel(application) {
     // 과목 등록
     fun insertSubject(data: Subject){
         subjectList.add(data)
+        if (todaySubjectList.value == null) todaySubjectList.value = mutableListOf<Subject>(data)
+        todaySubjectList.value!!.add(data)
         subjectDBHelper.insertSubject(data)
     }
 
     // 과목 이름으로 과목 삭제하기
     fun deleteSubjectByName(subName: String) {
         subjectList.removeIf {
+            it.subName == subName
+        }
+        todaySubjectList.value?.removeIf {
             it.subName == subName
         }
         subjectDBHelper.deleteSubjectByName(subName)
@@ -110,6 +116,9 @@ class StudyViewModel(application: Application) : AndroidViewModel(application) {
         subjectList.removeIf {
             it.date == date
         }
+        todaySubjectList.value?.removeIf {
+            it.date == date
+        }
         subjectDBHelper.deleteSubjectByName(date)
     }
     
@@ -118,6 +127,8 @@ class StudyViewModel(application: Application) : AndroidViewModel(application) {
         val newSubject = subjectList.find {
             it.date == date
         }!!
+        val idx1: Int = subjectList.indexOf(newSubject)
+        val idx2: Int = todaySubjectList.value!!.indexOf(newSubject)
 
         updateData.forEach {
             val key = it.key
@@ -136,8 +147,8 @@ class StudyViewModel(application: Application) : AndroidViewModel(application) {
             }
         }
 
-        val idx: Int = subjectList.indexOf(newSubject)
-        subjectList[idx] = newSubject
+        subjectList[idx1] = newSubject
+        todaySubjectList.value!![idx2] = newSubject
 
         // DB 업데이트
         subjectDBHelper.updateSubject(subjectName, date, updateData)
@@ -153,10 +164,9 @@ class StudyViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    /*fun addTest(test: Test){
-        newTest.value = test
-        testList.add(test)
-    }*/
+    fun findTodaySubjects(date: String){
+        todaySubjectList.value = subjectDBHelper.findSubjectByDate(date)
+    }
 
     fun fragmentTranslationRequest(target: FragmentRequest){
         fragmentRequest.value = target
