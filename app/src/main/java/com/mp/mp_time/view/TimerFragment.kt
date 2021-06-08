@@ -139,6 +139,7 @@ class TimerFragment : Fragment(){
 
         binding!!.countdown.text = "${String.format("%02d", hour)} : ${String.format("%02d", min)} : ${String.format("%02d", sec)}"
 
+
         binding!!.play.setOnClickListener {
 
             if (iswork == false){

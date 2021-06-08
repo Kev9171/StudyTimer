@@ -14,34 +14,27 @@ RecyclerView.Adapter<SubjectAdapter.ViewHolder>(){
 
     interface OnItemClickListener {
         fun onTimerClick(holder: ViewHolder, view: View, data: Subject, position: Int)
-        fun onLongClick(holder: ViewHolder, view: View, data: Subject, position: Int)
+        fun onItemClick(holder: ViewHolder, view: View, data: Subject, position: Int)
     }
 
     inner class ViewHolder(val binding: RowSubjectBinding) : RecyclerView.ViewHolder(binding.root) {
         init {
             binding.root.setOnClickListener {
-                if(binding.subjectDetails.visibility == View.VISIBLE){
-                    binding.subjectDetails.visibility = View.GONE
-                } else {
-                    binding.subjectDetails.visibility = View.VISIBLE
-                }
+                itemClickListener?.onItemClick(this@ViewHolder, it, items[absoluteAdapterPosition], absoluteAdapterPosition)
             }
             binding.startBtn.setOnClickListener {
                 itemClickListener?.onTimerClick(this, it, items[adapterPosition], adapterPosition)
             }
-            binding.root.setOnLongClickListener {
-                itemClickListener?.onLongClick(this@ViewHolder, it, items[absoluteAdapterPosition], absoluteAdapterPosition)
-                true
-            }
+            //binding.root.setOnLongClickListener {
+            //    itemClickListener?.onItemClick(this@ViewHolder, it, items[absoluteAdapterPosition], absoluteAdapterPosition)
+            //    true
+            //}
         }
     }
 
-    fun showDetails(viewHolder: ViewHolder, pos: Int) {
-        if(viewHolder.binding.subjectDetails.visibility == View.VISIBLE){
-            viewHolder.binding.subjectDetails.visibility = View.GONE
-        } else {
-            viewHolder.binding.subjectDetails.visibility = View.VISIBLE
-        }
+    fun changeItems(newItems: MutableList<Subject>) {
+        items = newItems
+        notifyDataSetChanged()
     }
 
     fun moveItem(oldPos: Int, newPos: Int) {
@@ -79,6 +72,5 @@ RecyclerView.Adapter<SubjectAdapter.ViewHolder>(){
 
     override fun getItemCount(): Int {
         return items.size
-
     }
 }
