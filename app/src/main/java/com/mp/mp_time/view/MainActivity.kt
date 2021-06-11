@@ -141,9 +141,9 @@ class MainActivity : AppCompatActivity() {
             }
             else{
                 Toast.makeText(this, "타이머 종료", Toast.LENGTH_SHORT).show()
-                supportFragmentManager.popBackStack()
                 viewModel.recreate = false
                 viewModel.backpressact = true
+                supportFragmentManager.popBackStack()
                 viewModel.fragmentTranslationRequest(FragmentRequest.REQUEST_STUDY)
 
             }
