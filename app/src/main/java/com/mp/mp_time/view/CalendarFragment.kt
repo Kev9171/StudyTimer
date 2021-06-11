@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -51,16 +52,24 @@ class CalendarFragment : Fragment() {
                 LinearLayoutManager.VERTICAL,
                 false
             )
+            ScheduleRecyclerView.layoutManager = LinearLayoutManager(
+                requireContext(),
+                LinearLayoutManager.VERTICAL,
+                false
+            )
+
             adapter = ScheduleAdapter(viewModel.scheduleList)
             val formatter = SimpleDateFormat("yyyy-M-dd")
             val date = Date(System.currentTimeMillis())
             var curSchedule = viewModel.getScheduleByDate(formatter.format(date).toString())
             //Toast.makeText(binding!!.root.context, formatter.format(date).toString(), Toast.LENGTH_SHORT).show()
             if(!curSchedule.isNullOrEmpty()){
-                displaySchedule.visibility = View.VISIBLE
-                scheduleDate.text = curSchedule[0].date
-                scheduleTitle.text = curSchedule[0].title
-                scheduleContent.text = curSchedule[0].content
+                ScheduleRecyclerView.visibility = View.VISIBLE
+                //adapter.items.filter {schedule: Schedule -> schedule.equals(curSchedule)}
+                //adapter.notifyDataSetChanged()
+//                adapter.scheduleDate.text = curSchedule[0].date
+//                scheduleTitle.text = curSchedule[0].title
+//                scheduleContent.text = curSchedule[0].content
                 swipeLayout.isSwipeEnabled=true
             }
 
@@ -82,6 +91,8 @@ class CalendarFragment : Fragment() {
                 }
             }
             cancelBtn.setOnClickListener {
+                nameEdit.text.clear()
+                scheduleEdit.text.clear()
                 addBtn.visibility = View.GONE
                 cancelBtn.visibility = View.GONE
                 dDayCheck.visibility = View.GONE
@@ -97,17 +108,18 @@ class CalendarFragment : Fragment() {
                     .plus("-") + dayOfMonth.toString()
                 curSchedule = viewModel.getScheduleByDate(curDate)
                 if (!curSchedule.isNullOrEmpty()) {
-                    displaySchedule.visibility = View.VISIBLE
-                    scheduleDate.text = curSchedule!![0].date
-                    scheduleTitle.text = curSchedule!![0].title
-                    scheduleContent.text = curSchedule!![0].content
+                    ScheduleRecyclerView.visibility = View.VISIBLE
+                    adapter.items.filter {schedule: Schedule -> schedule.equals(curSchedule)}
+//                    scheduleDate.text = curSchedule!![0].date
+//                    scheduleTitle.text = curSchedule!![0].title
+//                    scheduleContent.text = curSchedule!![0].content
                     swipeLayout.isSwipeEnabled = true
                     swipeLayout.open(swipeLayout.dragEdge)
                 } else {
-                    scheduleDate.text = ""
-                    scheduleTitle.text = ""
-                    scheduleContent.text = ""
-                    displaySchedule.visibility = View.GONE
+//                    scheduleDate.text = ""
+//                    scheduleTitle.text = ""
+//                    scheduleContent.text = ""
+                    ScheduleRecyclerView.visibility = View.GONE
                     swipeLayout.isSwipeEnabled = false
                 }
 
@@ -124,13 +136,15 @@ class CalendarFragment : Fragment() {
                                 dDay = dDay
                             )
                         )
+                        nameEdit.text.clear()
+                        scheduleEdit.text.clear()
 
                         addBtn.visibility = View.GONE
                         cancelBtn.visibility = View.GONE
                         dDayCheck.visibility = View.GONE
                         addSchedule.visibility = View.GONE
                         addScheduleBtn.visibility = View.VISIBLE
-                        DdayRecyclerView.visibility = View.VISIBLE
+                        swipeLayout.visibility = View.VISIBLE
                         Toast.makeText(binding!!.root.context, "일정을 추가했습니다.", Toast.LENGTH_SHORT).show()
                     }
                 }
@@ -166,9 +180,11 @@ class CalendarFragment : Fragment() {
                     calendarView.date = adapter.date.time
 
                     if(adapter.hasContent) {
-                        scheduleDate.text = viewModel.scheduleList[adapter.curPos].date
-                        scheduleTitle.text = viewModel.scheduleList[adapter.curPos].title
-                        scheduleContent.text = viewModel.scheduleList[adapter.curPos].content
+//                        scheduleDate.text = viewModel.scheduleList[adapter.curPos].date
+//                        scheduleTitle.text = viewModel.scheduleList[adapter.curPos].title
+//                        scheduleContent.text = viewModel.scheduleList[adapter.curPos].content
+                        swipeLayout.isSwipeEnabled = true
+                        adapter.items.filter {schedule: Schedule -> schedule.equals(viewModel.scheduleList[adapter.curPos])}
                         swipeLayout.open(swipeLayout.dragEdge)
                     }
                 }

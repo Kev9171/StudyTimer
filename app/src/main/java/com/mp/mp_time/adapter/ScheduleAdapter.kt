@@ -4,14 +4,16 @@ import android.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filterable
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.mp.mp_time.data.Schedule
 import com.mp.mp_time.databinding.RowDDayBinding
+import com.mp.mp_time.databinding.RowScheduleBinding
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ScheduleAdapter(var items: MutableList<Schedule>): RecyclerView.Adapter<ScheduleAdapter.ViewHolder>(){
+class ScheduleAdapter(var items: MutableList<Schedule>): RecyclerView.Adapter<ScheduleAdapter.ViewHolder>() {
     var itemClickListener: OnItemClickListener? = null
     val ONE_DAY = 24 * 60 * 60 * 1000
     lateinit var date: Date
@@ -22,7 +24,7 @@ class ScheduleAdapter(var items: MutableList<Schedule>): RecyclerView.Adapter<Sc
         fun onDateClick(holder: ScheduleAdapter.ViewHolder, view: View, data: Schedule)
     }
 
-    inner class ViewHolder(val binding: RowDDayBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(val binding: RowDDayBinding, val sbinding: RowScheduleBinding) : RecyclerView.ViewHolder(binding.root) {
         init {
             binding.root.setOnClickListener {
                 //클릭 이벤트 처리
@@ -33,6 +35,14 @@ class ScheduleAdapter(var items: MutableList<Schedule>): RecyclerView.Adapter<Sc
                     date = formatter.parse(selectedSchedule.date)
                     hasContent = !selectedSchedule.content.isNullOrBlank()
                     itemClickListener?.onDateClick(this, it, items[adapterPosition])
+                }
+            }
+            sbinding.root.setOnClickListener {
+                if(sbinding.scheduleContent.visibility == View.GONE){
+                    sbinding.scheduleContent.visibility = View.VISIBLE
+                }
+                else{
+                    sbinding.scheduleContent.visibility = View.GONE
                 }
             }
         }
@@ -54,9 +64,12 @@ class ScheduleAdapter(var items: MutableList<Schedule>): RecyclerView.Adapter<Sc
         return position
     }
 
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = RowDDayBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(view)
+        val ddayview = RowDDayBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val scheduleview = RowScheduleBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(ddayview, scheduleview)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -65,6 +78,13 @@ class ScheduleAdapter(var items: MutableList<Schedule>): RecyclerView.Adapter<Sc
             if(items[position].dDay)
                 testName.text = items[position].title
                 testDate.text = getDday(date[0].toInt(), date[1].toInt(), date[2].toInt())
+        }
+        holder.sbinding.apply {
+            if(!items[position].content.isNullOrBlank()){
+                scheduleTitle.text = items[position].title
+                scheduleDate.text = items[position].date
+                scheduleContent.text = items[position].content
+            }
         }
     }
 

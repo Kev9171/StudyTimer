@@ -34,8 +34,7 @@
         android:dateTextAppearance="@color/white"
         android:weekDayTextAppearance="?colorPrimary"
         android:background="@drawable/box_blue"
-        android:layout_margin="10dp"
-        />
+        android:layout_margin="10dp" />
 
     <LinearLayout
         android:id="@+id/addSchedule"
@@ -143,44 +142,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:id="@+id/displaySchedule"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/ScheduleRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@drawable/box_blue_outline"
-            android:visibility="gone">
-
-            <TextView
-                android:id="@+id/scheduleDate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_marginHorizontal="2dp"
-                android:layout_marginVertical="10dp"
-                android:text=""
-                android:textSize="20dp" />
-
-            <TextView
-                android:id="@+id/scheduleTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="2dp"
-                android:layout_marginVertical="10dp"
-                android:gravity="center"
-                android:text=""
-                android:textSize="20dp" />
-
-            <TextView
-                android:id="@+id/scheduleContent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text=""
-                android:layout_marginHorizontal="10dp"
-                android:layout_marginVertical="5dp"
-                android:textSize="20dp" />
-        </LinearLayout>
+            android:layout_height="wrap_content" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/DdayRecyclerView"
@@ -189,8 +154,5 @@
             android:layout_marginHorizontal="20dp" />
 
     </com.daimajia.swipe.SwipeLayout>
-
-
-
 
 </LinearLayout>
