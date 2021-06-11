@@ -51,11 +51,6 @@ class MyPlaceFragment : Fragment() {
             placeRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = MyPlaceAdapter(viewModel.placeList)
 
-            // test data
-            adapter.addItem(Place("도서관", LatLng(34.0,21.0), "", 4.2f))
-            adapter.addItem(Place("스터디 카페", LatLng(10.0,10.0), "", 3.0f))
-            adapter.addItem(Place("1917", LatLng(10.0,10.0), "", 5.0f))
-
             adapter.itemClickListener = object : MyPlaceAdapter.OnItemClickListener{
                 override fun onItemClick(holder: MyPlaceAdapter.ViewHolder, view: View, data: Place, position: Int) {
                    initmap(data.location)
