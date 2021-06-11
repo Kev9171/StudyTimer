@@ -44,10 +44,13 @@ class StudyViewModel(application: Application) : AndroidViewModel(application) {
     var studytime = 0
     var resttime = 0
     var maxtime = 0
+    var usingtime = 0
     var recreate = false
     var isauto = false
     var progress = 0
     var backpressact = false
+
+
     var timeused = 0  // 타이머에서 사용한 시간(초)
     //////////////////////////////
 

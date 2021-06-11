@@ -115,7 +115,7 @@
         android:layout_marginBottom="20dp"
         android:background="@color/yellow_500"
         android:clickable="true"
-        android:src="@drawable/ic_baseline_timer_24"
+        android:src="@android:drawable/ic_menu_revert"
         app:backgroundTint="@color/yellow_500"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

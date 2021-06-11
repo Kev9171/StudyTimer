@@ -52,9 +52,12 @@ class TimerFragment : Fragment(){
     private var rate = 0
     private var maxtime  = 0
 
+    private var usingtime = 0
+
     private var hour = 0
     private var min = 0
     private var sec = 0
+
 
     override fun onDestroyView() {
 
@@ -66,6 +69,7 @@ class TimerFragment : Fragment(){
             viewModel.progress = rate
             viewModel.resttime = rest
             viewModel.studytime = study
+            viewModel.usingtime = usingtime
         }
         super.onDestroyView()
         binding = null
@@ -80,9 +84,9 @@ class TimerFragment : Fragment(){
     override fun onStop() {
         super.onStop()
 
-        viewModel.timeused = maxtime - time
+        viewModel.timeused = usingtime
 
-        Toast.makeText(requireActivity(), viewModel.timeused.toString() + "초 경과", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(requireActivity(), viewModel.timeused.toString() + "초 경과", Toast.LENGTH_SHORT).show()
     }
 
 
@@ -101,6 +105,7 @@ class TimerFragment : Fragment(){
         floatact = false
 
         time = viewModel.timerSubjectNow!!.studyTime.toInt() * 3600 + ((viewModel.timerSubjectNow!!.studyTime - viewModel.timerSubjectNow!!.studyTime.toInt() ) * 6000).toInt()
+        study = viewModel.timerSubjectNow!!.studyTime.toInt() * 3600 + ((viewModel.timerSubjectNow!!.studyTime - viewModel.timerSubjectNow!!.studyTime.toInt() ) * 6000).toInt()
         rest = viewModel.timerSubjectNow!!.breakTime.toInt() * 3600 + ((viewModel.timerSubjectNow!!.breakTime - viewModel.timerSubjectNow!!.breakTime.toInt() ) * 6000).toInt()
         maxtime = time
 
@@ -113,6 +118,7 @@ class TimerFragment : Fragment(){
             maxtime = viewModel.maxtime
             rest = viewModel.resttime
             study = viewModel.studytime
+            usingtime = viewModel.usingtime
 
             if(viewModel.isauto){
                 binding!!.autoButton.isChecked = true
@@ -121,6 +127,7 @@ class TimerFragment : Fragment(){
                 binding!!.menualButton.isChecked = true
             }
             binding!!.graph.progress = viewModel.progress
+            checkablef()
         }
 
 
@@ -146,6 +153,7 @@ class TimerFragment : Fragment(){
                 binding!!.play.setImageResource(R.drawable.ic_baseline_pause_24)
                 startTimer()
                 iswork = true
+                checkablef()
             }
             else {
                 binding!!.play.setImageResource(R.drawable.ic_baseline_play_arrow_24)
@@ -194,6 +202,7 @@ class TimerFragment : Fragment(){
 
                 else {
                     time--
+                    usingtime++
 
                     rate = maxtime - time
 
@@ -228,18 +237,41 @@ class TimerFragment : Fragment(){
             timerTask = timer(period = 1000) {
 
                 if (time == 0) {
-                    stopTimer()
+                    /*stopTimer()
 
                     activity?.runOnUiThread {
                         binding!!.play.setImageResource(R.drawable.ic_baseline_play_arrow_24)
                     }
-                    iswork = false
+                    iswork = false*/
+
+                    time = viewModel.timerSubjectNow!!.studyTime.toInt() * 3600 + ((viewModel.timerSubjectNow!!.studyTime - viewModel.timerSubjectNow!!.studyTime.toInt() ) * 6000).toInt()
+                    rate = maxtime - time
+
+
+                    min = time / 60
+                    hour = min / 60
+                    sec = time % 60
+                    min %= 60
+
+
+
+
+                    activity?.runOnUiThread {
+
+                        binding!!.countdown.text = "${String.format("%02d", hour)} : ${String.format("%02d", min)} : ${String.format("%02d", sec)}"
+                        binding!!.graph.progress = rate
+
+                    }
+
+
+
                 }
 
                 else {
 
                     if (study > 0) {
                         time--
+                        usingtime++
                         study--
                         rate = maxtime - time
 
@@ -281,7 +313,7 @@ class TimerFragment : Fragment(){
 
                         if (rest == 0) {
 
-                            study = inputstudy
+                            study = viewModel.timerSubjectNow!!.studyTime.toInt() * 3600 + ((viewModel.timerSubjectNow!!.studyTime - viewModel.timerSubjectNow!!.studyTime.toInt() ) * 6000).toInt()
                             rest = viewModel.timerSubjectNow!!.breakTime.toInt() * 3600 + ((viewModel.timerSubjectNow!!.breakTime - viewModel.timerSubjectNow!!.breakTime.toInt() ) * 6000).toInt()
                             activity?.runOnUiThread {
 
@@ -324,6 +356,11 @@ class TimerFragment : Fragment(){
             viewModel.time = time
             viewModel.maxtime = maxtime
             viewModel.progress = rate
+
+            viewModel.resttime = rest
+            viewModel.studytime = study
+            viewModel.usingtime = usingtime
+
             makeNotification()
         }
 
@@ -362,6 +399,16 @@ class TimerFragment : Fragment(){
 
         manager.notify(10, Notification)
 
+    }
+
+    fun checkablet() {
+        binding!!.menualButton.isEnabled = true
+        binding!!.autoButton.isEnabled = true
+    }
+
+    fun checkablef() {
+        binding!!.menualButton.isEnabled = false
+        binding!!.autoButton.isEnabled = false
     }
 
 
