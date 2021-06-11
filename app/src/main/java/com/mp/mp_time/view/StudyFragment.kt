@@ -22,7 +22,7 @@ import java.time.format.DateTimeFormatter
 class StudyFragment : Fragment() {
     var binding: FragmentStudyBinding? = null
     val viewModel: StudyViewModel by activityViewModels()
-    lateinit var adapter: SubjectAdapter
+    val adapter: SubjectAdapter by lazy { SubjectAdapter(mutableListOf()) }
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -48,14 +48,13 @@ class StudyFragment : Fragment() {
 
     private fun initViewModel() {
         viewModel.todaySubjectList.observe(viewLifecycleOwner) {
-            adapter.changeItems(it)
+            if(it!=null) adapter.changeItems(it)
         }
     }
 
     private fun init() {
         binding!!.apply {
             subjectRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            adapter = SubjectAdapter(mutableListOf())
 
             val simpleCallBack = object: ItemTouchHelper.SimpleCallback(
                     ItemTouchHelper.DOWN or ItemTouchHelper.UP,

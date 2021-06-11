@@ -7,11 +7,28 @@
     android:scrollbars="none"
     tools:context=".view.UserSettingsFragment">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="20dp"
+        android:text="사용자 설정"
+        android:textSize="20dp"
+        android:textStyle="bold"/>
+    <View
+        android:layout_width="200dp"
+        android:layout_height="10dp"
+        android:background="@color/base_purple"
+        android:layout_marginTop="-20dp"
+        android:layout_marginBottom="15dp"
+        android:layout_gravity="center"
+        />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="20dp"
+        android:layout_marginHorizontal="20dp"
         android:overScrollMode="never"
-        android:background="@drawable/corner_shape" />
+        android:background="@drawable/corner_shape"/>
 </LinearLayout>

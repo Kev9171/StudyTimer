@@ -36,6 +36,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // 사용자 설정 style 로 바꾸기
+        theme.applyStyle(R.style.Theme_MPTIME_dark_blue, true)
         setContentView(R.layout.activity_main)
 
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)

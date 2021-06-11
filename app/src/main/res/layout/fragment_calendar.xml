@@ -1,35 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
+    android:background="?colorSurface"
     tools:context=".view.CalendarFragment"
     android:orientation="vertical">
 
-
     <TextView
         android:id="@+id/title"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_margin="20dp"
         android:text="D-day 캘린더"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="@color/white"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+        android:textSize="20dp"
+        android:textStyle="bold"/>
+
+    <View
+        android:layout_width="200dp"
+        android:layout_height="10dp"
+        android:background="@color/base_purple"
+        android:layout_marginTop="-20dp"
+        android:layout_marginBottom="5dp"
+        />
 
     <CalendarView
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/dark_background"
-        android:focusedMonthDateColor="@color/black"
-        android:unfocusedMonthDateColor="@color/white" />
+        android:dateTextAppearance="@color/white"
+        android:weekDayTextAppearance="?colorPrimary"
+        android:background="@drawable/box_blue"
+        android:layout_margin="10dp"
+        />
 
     <LinearLayout
         android:id="@+id/addSchedule"
@@ -49,13 +55,14 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="일정이름: "
-                android:textColor="@color/white"
                 android:textSize="20dp" />
 
             <EditText
                 android:id="@+id/nameEdit"
                 android:layout_width="0dp"
+                android:textColor="?colorOnPrimary"
                 android:layout_height="wrap_content"
+                android:backgroundTint="?colorPrimary"
                 android:layout_weight="3" />
         </LinearLayout>
 
@@ -70,13 +77,14 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="상세일정: "
-                android:textColor="@color/white"
                 android:textSize="20dp" />
 
             <EditText
                 android:id="@+id/scheduleEdit"
                 android:layout_width="0dp"
+                android:textColor="?colorOnPrimary"
                 android:layout_height="wrap_content"
+                android:backgroundTint="?colorPrimary"
                 android:layout_weight="3" />
         </LinearLayout>
 
@@ -86,17 +94,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
-
-        <Button
+        <TextView
             android:id="@+id/addScheduleBtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_weight="1"
-            android:layout_margin="5dp"
+            android:layout_margin="10dp"
             android:textSize="20dp"
-            android:text="일정 추가" />
-
+            android:text="일정 추가"
+            android:padding="10dp"
+            android:background="@drawable/box_purple"
+            />
         <Button
             android:id="@+id/addBtn"
             android:layout_width="0dp"
@@ -124,6 +133,8 @@
             android:layout_weight="1"
             android:layout_margin="5dp"
             android:visibility="gone"
+            android:textColor="?colorOnPrimary"
+            android:buttonTint="?colorPrimary"
             android:text="D-Day 설정" />
     </LinearLayout>
 
@@ -135,9 +146,9 @@
         <LinearLayout
             android:id="@+id/displaySchedule"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/dark_background"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:background="@drawable/box_blue_outline"
             android:visibility="gone">
 
             <TextView
@@ -145,19 +156,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:layout_marginHorizontal="2dp"
+                android:layout_marginVertical="10dp"
                 android:text=""
-                android:textColor="@color/white"
-                android:background="@drawable/box_purple"
                 android:textSize="20dp" />
 
             <TextView
                 android:id="@+id/scheduleTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="2dp"
+                android:layout_marginVertical="10dp"
                 android:gravity="center"
                 android:text=""
-                android:textColor="@color/white"
-                android:background="@drawable/box_purple"
                 android:textSize="20dp" />
 
             <TextView
@@ -166,8 +177,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text=""
-                android:textColor="@color/white"
-                android:background="@drawable/box_purple"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginVertical="5dp"
                 android:textSize="20dp" />
         </LinearLayout>
 

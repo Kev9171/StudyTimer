@@ -42,7 +42,7 @@ class DBFragment : Fragment() {
 
         var str2 = "<<일정 리스트>>\n"
         //viewModel.deleteScheduleByDateAndTitle("2020-01-01", "모프 강의")
-        viewModel.findAllSchedule()!!.forEach {
+        viewModel.findAllSchedule()?.forEach {
             str2 += it.date +
                     " / " + it.title +
                     " / " + it.content +
