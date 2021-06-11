@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
@@ -39,6 +40,8 @@ class MainActivity : AppCompatActivity() {
         // 사용자 설정 style 로 바꾸기
         theme.applyStyle(R.style.Theme_MPTIME_dark_blue, true)
         setContentView(R.layout.activity_main)
+
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
         init()
         initViewModel()
@@ -117,7 +120,7 @@ class MainActivity : AppCompatActivity() {
         super.onNewIntent(intent)
 
         val str = intent!!.getStringExtra("time")
-        if(str == "123")
+        if(str == "123" && viewModel.recreate)
         {
             supportFragmentManager.beginTransaction()
                     .replace(R.id.mainContainer, TimerFragment())
@@ -138,10 +141,23 @@ class MainActivity : AppCompatActivity() {
             }
             else{
                 Toast.makeText(this, "타이머 종료", Toast.LENGTH_SHORT).show()
-                supportFragmentManager.popBackStack()
                 viewModel.recreate = false
                 viewModel.backpressact = true
-                viewModel.fragmentTranslationRequest(FragmentRequest.REQUEST_STUDY)
+                /*supportFragmentManager.beginTransaction()
+                        .remove(TimerFragment())
+                        .commit()
+                TimerFragment().onDestroy()
+                TimerFragment().onDetach()*/
+
+
+                /*viewModel.fragmentTranslationRequest(FragmentRequest.REQUEST_STUDY)*/
+
+                supportFragmentManager.popBackStack()
+
+                val fragmentTranslation = supportFragmentManager.beginTransaction()
+                        .replace(R.id.mainContainer, StudyFragment())
+
+                fragmentTranslation.commit()
 
             }
 
