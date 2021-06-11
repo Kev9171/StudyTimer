@@ -166,8 +166,14 @@ class TimerFragment : Fragment(){
         binding!!.floatingActionButton.setOnClickListener {
             viewModel.recreate = false
             floatact = true
+            /*requireActivity().supportFragmentManager.popBackStack()
+            viewModel.fragmentTranslationRequest(FragmentRequest.REQUEST_STUDY)*/
             requireActivity().supportFragmentManager.popBackStack()
-            viewModel.fragmentTranslationRequest(FragmentRequest.REQUEST_STUDY)
+
+            val fragmentTranslation = requireActivity().supportFragmentManager.beginTransaction()
+                    .replace(R.id.mainContainer, StudyFragment())
+
+            fragmentTranslation.commit()
         }
 
 

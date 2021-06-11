@@ -143,8 +143,21 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "타이머 종료", Toast.LENGTH_SHORT).show()
                 viewModel.recreate = false
                 viewModel.backpressact = true
+                /*supportFragmentManager.beginTransaction()
+                        .remove(TimerFragment())
+                        .commit()
+                TimerFragment().onDestroy()
+                TimerFragment().onDetach()*/
+
+
+                /*viewModel.fragmentTranslationRequest(FragmentRequest.REQUEST_STUDY)*/
+
                 supportFragmentManager.popBackStack()
-                viewModel.fragmentTranslationRequest(FragmentRequest.REQUEST_STUDY)
+
+                val fragmentTranslation = supportFragmentManager.beginTransaction()
+                        .replace(R.id.mainContainer, StudyFragment())
+
+                fragmentTranslation.commit()
 
             }
 
