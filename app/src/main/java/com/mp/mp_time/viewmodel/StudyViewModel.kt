@@ -1,6 +1,7 @@
 package com.mp.mp_time.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.maps.model.LatLng
@@ -10,6 +11,8 @@ import com.mp.mp_time.data.Subject
 import com.mp.mp_time.database.PlaceDBHelper
 import com.mp.mp_time.database.SubjectDBHelper
 import com.mp.mp_time.database.ScheduleDBHelper
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 enum class FragmentRequest {
     REQUEST_SUBJECT, REQUEST_TIMER, REQUEST_MODIFY, REQUEST_STUDY, REQUEST_PLACE
@@ -165,6 +168,44 @@ class StudyViewModel(application: Application) : AndroidViewModel(application) {
 
         // DB 업데이트
         subjectDBHelper.updateSubject(subjectName, date, updateData)
+    }
+
+
+    fun updateSubjectAchievedTime (subject: Subject, newTime: Int) {
+        // subject 의 achievedTime 에 newTime 더해서 update
+        val date = LocalDateTime.now().format(DateTimeFormatter.ISO_DATE) // 오늘 날짜. 'yyyy-mm-dd' 형식
+
+
+        val newSubject = subjectList.find {
+            it.date == date && it.subName == subject.subName
+        }!!
+        val idx1: Int = subjectList.indexOf(newSubject)
+        val idx2: Int = todaySubjectList.value!!.indexOf(newSubject)
+
+        val originalTime = newSubject.achievedTime.split(":")
+        var hour = originalTime[0].toInt()
+        var min = originalTime[1].toInt()
+        var sec = originalTime[2].toInt()
+
+        sec += newTime
+        min += sec / 60
+        sec %= 60
+
+        hour += min / 60
+        min %= 60
+
+        var newTimeString = ""
+        newTimeString += if(hour / 10 == 0) "0$hour" else "$hour"
+        newTimeString += if(min / 10 == 0) ":0$min" else ":$min"
+        newTimeString += if(sec / 10 == 0) ":0$sec" else ":$sec"
+
+        newSubject.achievedTime = newTimeString
+
+        subjectList[idx1] = newSubject
+        todaySubjectList.value!![idx2] = newSubject
+
+        // DB 업데이트
+        subjectDBHelper.updateSubject(subject.subName, date, newTimeString)
     }
 
     fun insertNewDate(date: String) {

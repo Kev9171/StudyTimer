@@ -205,4 +205,24 @@ class SubjectDBHelper(
         db.close()
         return flag
     }
+
+    // 공부 시간 업데이트
+    fun updateSubject(subjectName: String, date: String, newTime: String): Boolean {
+        // 먼저 해당 subject 가 존재하는지 확인
+        val selectSql = "select * from $TABLE_SUBJECT where $SUBNAME='$subjectName';"
+        val db = writableDatabase
+        val cursor = db.rawQuery(selectSql, null)
+
+        val flag = cursor.count != 0
+        if(flag) {
+            cursor.moveToFirst()
+            val values = ContentValues()
+            values.put(ACHIEVEDTIME, newTime)
+            db.update(TABLE_SUBJECT, values, "$SUBNAME=? and $DATE=?", arrayOf(subjectName, date))
+        }
+
+        cursor.close()
+        db.close()
+        return flag
+    }
 }

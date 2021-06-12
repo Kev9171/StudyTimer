@@ -85,6 +85,7 @@ class TimerFragment : Fragment(){
         super.onStop()
 
         viewModel.timeused = usingtime
+        viewModel.updateSubjectAchievedTime(viewModel.timerSubjectNow!!, usingtime)
 
         //Toast.makeText(requireActivity(), viewModel.timeused.toString() + "초 경과", Toast.LENGTH_SHORT).show()
     }
