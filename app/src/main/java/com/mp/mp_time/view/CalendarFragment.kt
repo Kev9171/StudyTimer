@@ -19,6 +19,8 @@ import com.mp.mp_time.database.ScheduleDBHelper
 import com.mp.mp_time.databinding.FragmentCalendarBinding
 import com.mp.mp_time.viewmodel.StudyViewModel
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 
@@ -61,18 +63,15 @@ class CalendarFragment : Fragment() {
             )
             swipeLayout.isSwipeEnabled = true
             swipeLayout.open(swipeLayout.dragEdge)
+            curDate = LocalDateTime.now().format(DateTimeFormatter.ISO_DATE) // 오늘 날짜. 'yyyy-mm-dd' 형식
 
             // scheduleAdapter: 일정
             scheduleAdapter = ScheduleAdapter(mutableListOf())
             ScheduleRecyclerView.adapter = scheduleAdapter
-            val formatter = SimpleDateFormat("yyyy-MM-dd")
-            val date = Date(System.currentTimeMillis())
-            //var curSchedule = viewModel.getScheduleByDate(formatter.format(date).toString())
             val curSchedule = viewModel.scheduleList.filter {
                 it.date == curDate
             } as MutableList<Schedule>
-
-            Toast.makeText(binding!!.root.context, formatter.format(date).toString(), Toast.LENGTH_SHORT).show() // ddd
+            //Toast.makeText(binding!!.root.context, formatter.format(date).toString(), Toast.LENGTH_SHORT).show() // ddd
 
             if (!curSchedule.isNullOrEmpty()) {
                 scheduleAdapter.items = curSchedule

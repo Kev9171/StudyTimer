@@ -1,5 +1,6 @@
 package com.mp.mp_time.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -66,11 +67,15 @@ class DdayAdapter(var items: MutableList<Schedule>): RecyclerView.Adapter<DdayAd
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.apply {
+
             val date = items[position].date.split("-")
-            if(items[position].dDay) {
-                testName.text = items[position].title
-                testDate.text = getDday(date[0].toInt(), date[1].toInt(), date[2].toInt())
-            }
+            //Log.e("----->", "${items[position].date} / ${items[position].title} / ${items[position].dDay}")
+            testName.text = items[position].title
+            testDate.text = getDday(date[0].toInt(), date[1].toInt(), date[2].toInt())
+//            if(items[position].dDay) {
+//                testName.text = items[position].title
+//                testDate.text = getDday(date[0].toInt(), date[1].toInt(), date[2].toInt())
+//            }
         }
     }
 
