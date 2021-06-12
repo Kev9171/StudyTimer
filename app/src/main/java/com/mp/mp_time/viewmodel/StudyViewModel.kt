@@ -93,11 +93,17 @@ class StudyViewModel(application: Application) : AndroidViewModel(application) {
 
     // 날짜와 일정 제목으로 일정 지우기
     fun deleteScheduleByDateAndTitle(date: String, title: String): Boolean {
+        scheduleList.removeIf {
+            it.date == date && it.title == title
+        }
         return scheduleDBHelper.deleteScheduleByDateAndTitle(date, title)
     }
 
     // 해당 날짜의 일정 모두 지우기
     fun deleteScheduleByDate(date: String): Boolean {
+        scheduleList.removeIf {
+            it.date == date
+        }
         return scheduleDBHelper.deleteScheduleByDate(date)
     }
 
