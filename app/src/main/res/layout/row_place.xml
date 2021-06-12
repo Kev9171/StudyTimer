@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="장소 이름"
-            android:textSize="15dp"
+            android:textSize="20dp"
             android:textColor="@color/white"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true" />
@@ -38,8 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="15dp"
-        android:textSize="25dp"
+        android:textSize="15dp"
         android:textColor="@color/white"
-
         android:visibility="gone"/>
 </LinearLayout>
