@@ -18,6 +18,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.mp.mp_time.data.Place
 import com.mp.mp_time.databinding.FragmentAddPlaceBinding
 import com.mp.mp_time.viewmodel.StudyViewModel
 
@@ -42,13 +43,7 @@ class AddPlaceFragment : Fragment(){
     ): View {
         binding = FragmentAddPlaceBinding.inflate(layoutInflater, container, false)
 
-
-
-
-
         geocoder = Geocoder(requireActivity())
-
-
 
         binding!!.map
 
@@ -95,10 +90,10 @@ class AddPlaceFragment : Fragment(){
 
                     //이후 DB에 추가
 
-                    // insert(place(viewModel.AddPlaceNow!!.placeName,
-                    // viewModel.AddPlaceNow!!.location,
-                    // viewModel.AddPlaceNow!!.comment,
-                    // viewModel.AddPlaceNow!!.rating))
+                    viewModel.insertPlace(Place(viewModel.AddPlaceNow!!.placeName,
+                            viewModel.AddPlaceNow!!.location,
+                            viewModel.AddPlaceNow!!.comment,
+                            viewModel.AddPlaceNow!!.rating))
 
                     requireActivity().supportFragmentManager
                             .beginTransaction()

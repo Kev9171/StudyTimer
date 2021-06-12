@@ -204,7 +204,7 @@ class StudyViewModel(application: Application) : AndroidViewModel(application) {
 
     // 해당 날짜의 일정 모두 지우기
     fun deletePlaceByLocation(location: LatLng): Boolean {
-        return deletePlaceByLocation(location)
+        return placeDBHelper.deletePlaceByLocation(location)
     }
 
     // 저장되어 있는 일정 모두 찾기기

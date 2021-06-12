@@ -65,8 +65,8 @@ class CalendarFragment : Fragment() {
             //Toast.makeText(binding!!.root.context, formatter.format(date).toString(), Toast.LENGTH_SHORT).show()
             if(!curSchedule.isNullOrEmpty()){
                 ScheduleRecyclerView.visibility = View.VISIBLE
-                //adapter.items.filter {schedule: Schedule -> schedule.equals(curSchedule)}
-                //adapter.notifyDataSetChanged()
+                adapter.items.filter {schedule: Schedule -> schedule.equals(curSchedule)}
+                adapter.notifyDataSetChanged()
 //                adapter.scheduleDate.text = curSchedule[0].date
 //                scheduleTitle.text = curSchedule[0].title
 //                scheduleContent.text = curSchedule[0].content
@@ -110,6 +110,7 @@ class CalendarFragment : Fragment() {
                 if (!curSchedule.isNullOrEmpty()) {
                     ScheduleRecyclerView.visibility = View.VISIBLE
                     adapter.items.filter {schedule: Schedule -> schedule.equals(curSchedule)}
+                    adapter.notifyDataSetChanged()
 //                    scheduleDate.text = curSchedule!![0].date
 //                    scheduleTitle.text = curSchedule!![0].title
 //                    scheduleContent.text = curSchedule!![0].content
@@ -185,6 +186,7 @@ class CalendarFragment : Fragment() {
 //                        scheduleContent.text = viewModel.scheduleList[adapter.curPos].content
                         swipeLayout.isSwipeEnabled = true
                         adapter.items.filter {schedule: Schedule -> schedule.equals(viewModel.scheduleList[adapter.curPos])}
+                        adapter.notifyDataSetChanged()
                         swipeLayout.open(swipeLayout.dragEdge)
                     }
                 }

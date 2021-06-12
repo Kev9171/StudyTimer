@@ -3,6 +3,7 @@ package com.mp.mp_time.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.get
 import androidx.recyclerview.widget.RecyclerView
 import com.mp.mp_time.data.Place
 import com.mp.mp_time.databinding.RowPlaceBinding
@@ -20,11 +21,23 @@ class MyPlaceAdapter (var items: MutableList<Place>):
         init {
             binding.root.setOnClickListener {
                 itemClickListener?.onItemClick(this, it, items[adapterPosition], adapterPosition)
+                if(binding.myComment.visibility == View.GONE&&!binding.myComment.text.isNullOrBlank()){
+                    closeComment(this)
+                    binding.myComment.visibility = View.VISIBLE
+                }
+                else
+                    binding.myComment.visibility = View.GONE
             }
         }
     }
 
     fun addItem(data: Place) = items.add(data)
+
+    fun closeComment(holder: ViewHolder){
+        holder.binding.apply {
+            myComment.visibility = View.GONE
+        }
+    }
 
     override fun getItemViewType(position: Int): Int {
         return position
@@ -39,6 +52,8 @@ class MyPlaceAdapter (var items: MutableList<Place>):
         holder.binding.apply {
             placeName.text = items[position].placeName
             ratingBar.rating = items[position].rating
+            if(!items[position].comment.isNullOrBlank())
+                myComment.text = items[position].comment
         }
     }
 
