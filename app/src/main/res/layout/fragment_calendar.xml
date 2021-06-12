@@ -141,18 +141,38 @@
         android:id="@+id/swipeLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/ScheduleRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/DdayRecyclerView"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp" />
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="일정을 누르면 상세 일정을 볼 수 있습니다."
+                android:layout_marginEnd="5dp"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/ScheduleRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="5dp"/>
+        </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="오른쪽으로 밀면 일정 삭제, 왼쪽으로 밀면 일정 보기"
+                android:layout_marginEnd="5dp"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/DdayRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="5dp" />
+        </LinearLayout>
     </com.daimajia.swipe.SwipeLayout>
-
 </LinearLayout>
