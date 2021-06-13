@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
         initReceiver()
         initNewDay()
 
-        binding.bottomMenu.selectedItemId = R.id.studyMenu
+        binding.bottomMenu.selectedItemId = R.id.schedulerMenu
         supportFragmentManager.beginTransaction()
             .replace(R.id.mainContainer, CalendarFragment())
             .commit()
