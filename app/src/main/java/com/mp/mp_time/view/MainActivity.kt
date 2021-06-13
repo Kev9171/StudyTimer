@@ -14,6 +14,7 @@ import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mp.mp_time.R
+import com.mp.mp_time.database.MySharedPreferences
 import com.mp.mp_time.databinding.ActivityMainBinding
 import com.mp.mp_time.viewmodel.FragmentRequest
 import com.mp.mp_time.viewmodel.StudyViewModel
@@ -38,7 +39,26 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         // 사용자 설정 style 로 바꾸기
-        theme.applyStyle(R.style.Theme_MPTIME_dark_blue, true)
+        val prefs = MySharedPreferences(applicationContext)
+        val set_theme = prefs?.get().toString().toInt()
+
+        when(set_theme){
+            0->{
+                theme.applyStyle(R.style.Theme_MPTIME_light_pink, true)
+            }
+            1->{
+                theme.applyStyle(R.style.Theme_MPTIME_light_green, true)
+            }
+            2->{
+                theme.applyStyle(R.style.Theme_MPTIME_dark_blue, true)
+            }
+            3->{
+
+            }
+            4->{
+                theme.applyStyle(R.style.Theme_MPTIME_dark_red, true)
+            }
+        }
         setContentView(R.layout.activity_main)
 
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
