@@ -1,13 +1,10 @@
-package com.mp.mp_time.view
+package com.mp.mp_time.view.activity
 
-import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.core.view.get
-import androidx.fragment.app.findFragment
 import androidx.viewpager2.widget.ViewPager2
 import com.mp.mp_time.R
 import com.mp.mp_time.adapter.ThemeViewPagerAdapter
@@ -45,7 +42,7 @@ class SetThemeActivity : AppCompatActivity() {
     private fun init(){
         binding.backText.setOnClickListener {
             finishAffinity()
-            val intent = Intent(this,MainActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
             startActivity(intent)
         }
@@ -80,7 +77,7 @@ class SetThemeActivity : AppCompatActivity() {
             }
 
             finishAffinity()
-            val intent = Intent(this,MainActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
             startActivity(intent)
             Toast.makeText(this,"테마가 변경되었습니다.",Toast.LENGTH_SHORT).show()

@@ -1,4 +1,4 @@
-package com.mp.mp_time.view
+package com.mp.mp_time.view.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,7 +14,6 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.mp.mp_time.adapter.MyPlaceAdapter
-import com.mp.mp_time.adapter.SubjectAdapter
 import com.mp.mp_time.data.Place
 import com.mp.mp_time.databinding.FragmentMyPlaceBinding
 import com.mp.mp_time.viewmodel.FragmentRequest

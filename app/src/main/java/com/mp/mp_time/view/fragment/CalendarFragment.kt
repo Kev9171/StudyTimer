@@ -1,12 +1,10 @@
-package com.mp.mp_time.view
+package com.mp.mp_time.view.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -15,10 +13,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mp.mp_time.adapter.DdayAdapter
 import com.mp.mp_time.adapter.ScheduleAdapter
 import com.mp.mp_time.data.Schedule
-import com.mp.mp_time.database.ScheduleDBHelper
 import com.mp.mp_time.databinding.FragmentCalendarBinding
 import com.mp.mp_time.viewmodel.StudyViewModel
-import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*

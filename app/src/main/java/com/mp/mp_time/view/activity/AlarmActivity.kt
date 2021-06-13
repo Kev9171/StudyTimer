@@ -1,4 +1,4 @@
-package com.mp.mp_time.view
+package com.mp.mp_time.view.activity
 
 import android.app.AlarmManager
 import android.app.PendingIntent

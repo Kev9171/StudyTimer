@@ -10,7 +10,7 @@ import android.os.Build
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import com.mp.mp_time.R
-import com.mp.mp_time.view.MainActivity
+import com.mp.mp_time.view.activity.MainActivity
 import java.text.SimpleDateFormat
 import java.util.*
 

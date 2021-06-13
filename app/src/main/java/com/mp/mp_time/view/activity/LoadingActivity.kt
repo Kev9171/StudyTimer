@@ -1,4 +1,4 @@
-package com.mp.mp_time.view
+package com.mp.mp_time.view.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity

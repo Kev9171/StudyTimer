@@ -1,4 +1,4 @@
-package com.mp.mp_time.view
+package com.mp.mp_time.view.fragment
 
 import android.app.Notification
 import android.app.NotificationChannel
@@ -15,17 +15,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.app.NotificationCompat
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModel
 import com.mp.mp_time.R
 import com.mp.mp_time.databinding.FragmentTimerBinding
-import com.mp.mp_time.viewmodel.FragmentRequest
+import com.mp.mp_time.view.activity.MainActivity
 import com.mp.mp_time.viewmodel.StudyViewModel
-import kotlinx.coroutines.flow.callbackFlow
 import java.util.*
 import kotlin.concurrent.timer
 

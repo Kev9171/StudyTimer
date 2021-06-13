@@ -1,4 +1,4 @@
-package com.mp.mp_time.view
+package com.mp.mp_time.view.fragment
 
 import android.media.MediaPlayer
 import android.os.Bundle
@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mp.mp_time.R
 import com.mp.mp_time.adapter.CalmAdapter
 import com.mp.mp_time.data.MusicData
+import com.mp.mp_time.view.activity.MusicPlayerActivity
 
 
 class SadFragment : Fragment() {

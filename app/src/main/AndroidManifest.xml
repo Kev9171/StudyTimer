@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MPTIME.dark">
 
-        <activity android:name=".view.LoadingActivity"
+        <activity android:name=".view.activity.LoadingActivity"
             android:theme="@style/Theme.Design.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,18 +22,18 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".view.MainActivity"
+        <activity android:name=".view.activity.MainActivity"
             android:launchMode="singleTop">
 
         </activity>
 
-        <activity android:name=".view.SetThemeActivity">
+        <activity android:name=".view.activity.SetThemeActivity">
         </activity>
 
-        <activity android:name=".view.MusicPlayerActivity">
+        <activity android:name=".view.activity.MusicPlayerActivity">
         </activity>
 
-        <activity android:name=".view.AlarmActivity">
+        <activity android:name=".view.activity.AlarmActivity">
         </activity>
 
         <receiver

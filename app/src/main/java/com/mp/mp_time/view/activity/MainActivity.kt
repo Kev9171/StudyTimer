@@ -1,4 +1,4 @@
-package com.mp.mp_time.view
+package com.mp.mp_time.view.activity
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -16,9 +16,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mp.mp_time.R
 import com.mp.mp_time.database.MySharedPreferences
 import com.mp.mp_time.databinding.ActivityMainBinding
+import com.mp.mp_time.view.fragment.*
 import com.mp.mp_time.viewmodel.FragmentRequest
 import com.mp.mp_time.viewmodel.StudyViewModel
-import java.util.*
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 

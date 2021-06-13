@@ -1,4 +1,4 @@
-package com.mp.mp_time.view
+package com.mp.mp_time.view.fragment
 
 import android.app.Activity
 import android.content.Intent
@@ -13,6 +13,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mp.mp_time.R
 import com.mp.mp_time.adapter.MyAdapter
 import com.mp.mp_time.data.MyData
+import com.mp.mp_time.view.activity.AlarmActivity
+import com.mp.mp_time.view.activity.MusicPlayerActivity
+import com.mp.mp_time.view.activity.SetThemeActivity
 import java.util.*
 import kotlin.collections.ArrayList
 

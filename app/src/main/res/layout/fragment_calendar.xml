@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:gravity="center"
     android:background="?colorSurface"
-    tools:context=".view.CalendarFragment"
+    tools:context=".view.fragment.CalendarFragment"
     android:orientation="vertical">
 
     <TextView
