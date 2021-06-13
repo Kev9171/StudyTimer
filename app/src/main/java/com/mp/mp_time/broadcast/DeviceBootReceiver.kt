@@ -1,4 +1,4 @@
-package com.mp.mp_time.alarm
+package com.mp.mp_time.broadcast
 
 import android.app.AlarmManager
 import android.app.PendingIntent

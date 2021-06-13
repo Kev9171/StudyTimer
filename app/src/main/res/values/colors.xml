@@ -19,11 +19,11 @@
     <color name="base_purple">#5C5860</color>
     <color name="material_white">#FFE1E2DF</color>
     <color name="md_blue_200">#FF1E293B</color>
+    <color name="background_black">#222222</color>
 
     <color name="basic_pink">#BB2DAD</color>
     <color name="basic_purple">#6C2DBB</color>
     <color name="basic_green">#45942A</color>
     <color name="basic_blue">#2D99BB</color>
     <color name="basic_red">#B53232</color>
-
 </resources>

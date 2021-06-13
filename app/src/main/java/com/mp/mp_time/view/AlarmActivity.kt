@@ -1,4 +1,4 @@
-package com.mp.mp_time.alarm
+package com.mp.mp_time.view
 
 import android.app.AlarmManager
 import android.app.PendingIntent
@@ -15,6 +15,8 @@ import android.widget.TextView
 import android.widget.TimePicker
 import android.widget.Toast
 import com.mp.mp_time.R
+import com.mp.mp_time.broadcast.AlarmReceiver
+import com.mp.mp_time.broadcast.DeviceBootReceiver
 import java.text.SimpleDateFormat
 import java.util.*
 
