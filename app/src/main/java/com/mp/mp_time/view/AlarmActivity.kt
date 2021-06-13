@@ -17,13 +17,19 @@ import android.widget.Toast
 import com.mp.mp_time.R
 import com.mp.mp_time.broadcast.AlarmReceiver
 import com.mp.mp_time.broadcast.DeviceBootReceiver
+import com.mp.mp_time.database.MySharedPreferences
 import java.text.SimpleDateFormat
 import java.util.*
 
 class AlarmActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Set user theme before inflate
+        theme.applyStyle(MySharedPreferences(applicationContext).getUserTheme(), true)
+
         setContentView(R.layout.activity_alarm)
+
         val picker = findViewById<View>(R.id.timePicker) as TimePicker
         val timeText = findViewById<TextView>(R.id.timeText)
         picker.setIs24HourView(false)

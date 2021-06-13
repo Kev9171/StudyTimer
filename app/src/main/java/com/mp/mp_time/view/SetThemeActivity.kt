@@ -23,6 +23,10 @@ class SetThemeActivity : AppCompatActivity() {
     lateinit var binding: ActivitySetThemeBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Set user theme before inflate
+        theme.applyStyle(MySharedPreferences(applicationContext).getUserTheme(), true)
+
         binding = ActivitySetThemeBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initViewPager()
@@ -68,7 +72,7 @@ class SetThemeActivity : AppCompatActivity() {
                     theme.applyStyle(R.style.Theme_MPTIME_dark_blue, true)
                 }
                 3->{
-
+                    theme.applyStyle(R.style.Theme_MPTIME_dark, true)
                 }
                 4->{
                     theme.applyStyle(R.style.Theme_MPTIME_dark_red, true)

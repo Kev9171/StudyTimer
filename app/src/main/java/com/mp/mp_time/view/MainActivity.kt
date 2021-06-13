@@ -38,29 +38,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // 사용자 설정 style 로 바꾸기
-        val prefsString = MySharedPreferences(applicationContext)?.get().toString()
-        val set_theme = if(prefsString.isEmpty()) { 0 } else prefsString.toInt()
+        // Set user theme before inflate
+        theme.applyStyle(MySharedPreferences(applicationContext).getUserTheme(), true)
 
-        when(set_theme){
-            0->{
-                theme.applyStyle(R.style.Theme_MPTIME_light_pink, true)
-            }
-            1->{
-                theme.applyStyle(R.style.Theme_MPTIME_light_green, true)
-            }
-            2->{
-                theme.applyStyle(R.style.Theme_MPTIME_dark_blue, true)
-            }
-            3->{
-
-            }
-            4->{
-                theme.applyStyle(R.style.Theme_MPTIME_dark_red, true)
-            }
-        }
-        setContentView(R.layout.activity_main)
-
+        setContentView(binding.root)
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
         init()

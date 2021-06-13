@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
 import com.mp.mp_time.R
 import com.mp.mp_time.adapter.MyFragStateAdapter
+import com.mp.mp_time.database.MySharedPreferences
 import com.mp.mp_time.databinding.ActivityMusicPlayerBinding
 import java.util.*
 
@@ -39,6 +40,10 @@ class MusicPlayerActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Set user theme before inflate
+        theme.applyStyle(MySharedPreferences(applicationContext).getUserTheme(), true)
+
         binding = ActivityMusicPlayerBinding.inflate(layoutInflater)
         setContentView(binding.root)
         pager()
