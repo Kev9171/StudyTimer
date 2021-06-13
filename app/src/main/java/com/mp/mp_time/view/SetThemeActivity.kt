@@ -79,7 +79,7 @@ class SetThemeActivity : AppCompatActivity() {
             val intent = Intent(this,MainActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
             startActivity(intent)
-            Toast.makeText(this,"테마가 정상적으로 변경되었습니다.",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this,"테마가 변경되었습니다.",Toast.LENGTH_SHORT).show()
         }
     }
 

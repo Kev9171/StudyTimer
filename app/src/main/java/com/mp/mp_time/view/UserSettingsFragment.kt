@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mp.mp_time.R
 import com.mp.mp_time.adapter.MyAdapter
-import com.mp.mp_time.alarm.AlarmActivity
 import com.mp.mp_time.data.MyData
 import java.util.*
 import kotlin.collections.ArrayList

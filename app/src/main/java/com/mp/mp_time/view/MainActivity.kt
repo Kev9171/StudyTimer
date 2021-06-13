@@ -39,8 +39,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         // 사용자 설정 style 로 바꾸기
-        val prefs = MySharedPreferences(applicationContext)
-        val set_theme = prefs?.get().toString().toInt()
+        val prefsString = MySharedPreferences(applicationContext)?.get().toString()
+        val set_theme = if(prefsString.isEmpty()) { 0 } else prefsString.toInt()
 
         when(set_theme){
             0->{
