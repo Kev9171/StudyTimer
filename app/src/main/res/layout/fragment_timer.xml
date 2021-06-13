@@ -33,10 +33,12 @@
     <TextView
         android:id="@+id/textView5"
         android:layout_width="188dp"
-        android:layout_height="18dp"
+        android:layout_height="wrap_content"
+        android:textSize="25dp"
         android:layout_marginBottom="59dp"
         android:gravity="center"
         android:text="과목이름"
+        android:textColor="?colorPrimary"
         app:layout_constraintBottom_toTopOf="@+id/play"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
