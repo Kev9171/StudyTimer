@@ -1,11 +1,17 @@
 package com.mp.mp_time.view
 
+import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
+import androidx.core.view.get
+import androidx.fragment.app.findFragment
 import androidx.viewpager2.widget.ViewPager2
 import com.mp.mp_time.R
 import com.mp.mp_time.adapter.ThemeViewPagerAdapter
+import com.mp.mp_time.database.MySharedPreferences
 import com.mp.mp_time.databinding.ActivitySetThemeBinding
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 
@@ -21,15 +27,23 @@ class SetThemeActivity : AppCompatActivity() {
         setContentView(binding.root)
         initViewPager()
         init()
+        setTheme()
 
     }
 
+    override fun onPause() {
+        super.onPause()
+        overridePendingTransition(0,0)
+    }
 
 
 
     private fun init(){
         binding.backText.setOnClickListener {
-            finish()
+            finishAffinity()
+            val intent = Intent(this,MainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+            startActivity(intent)
         }
     }
 
@@ -37,7 +51,35 @@ class SetThemeActivity : AppCompatActivity() {
         binding.setButton.setOnClickListener {
             //val i = intent
             //i.putExtra("set", 설정된값)
-            finish()
+            val prefs = MySharedPreferences(applicationContext)
+            val k = binding.viewPagerTheme.currentItem
+            prefs.set(k.toString())
+
+            val set_theme = prefs?.get().toString().toInt()
+
+            when(set_theme){
+                0->{
+                    theme.applyStyle(R.style.Theme_MPTIME_light_pink, true)
+                }
+                1->{
+                    theme.applyStyle(R.style.Theme_MPTIME_light_green, true)
+                }
+                2->{
+                    theme.applyStyle(R.style.Theme_MPTIME_dark_blue, true)
+                }
+                3->{
+
+                }
+                4->{
+                    theme.applyStyle(R.style.Theme_MPTIME_dark_red, true)
+                }
+            }
+
+            finishAffinity()
+            val intent = Intent(this,MainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+            startActivity(intent)
+            Toast.makeText(this,"테마가 정상적으로 변경되었습니다.",Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -49,19 +91,34 @@ class SetThemeActivity : AppCompatActivity() {
         binding.viewPagerTheme.setPageTransformer(ZoomOutPageTransformer()) // 애니메이션 적용
 
 
-
         val dotsIndicator = findViewById<DotsIndicator>(R.id.dots_indicator)
-        //val viewPager = findViewById<ViewPager2>(R.id.viewPager_theme)
         dotsIndicator.setViewPager2(binding.viewPagerTheme)
+
+
     }
 
 
     private fun getThemeList(): ArrayList<Int> {
-        return arrayListOf<Int>(R.drawable.theme1, R.drawable.theme2)
+        return arrayListOf<Int>(R.drawable.theme1, R.drawable.theme2, R.drawable.theme3, R.drawable.theme4, R.drawable.theme5)
     }
 
     inner class ZoomOutPageTransformer : ViewPager2.PageTransformer {
         override fun transformPage(view: View, position: Float) {
+            val viewPager = findViewById<ViewPager2>(R.id.viewPager_theme)
+            if(viewPager.currentItem==0){
+                binding.themeText.text = "WHITE PINK"
+            }else if(viewPager.currentItem==1){
+                binding.themeText.text = "WHITE GREEN"
+            }else if(viewPager.currentItem==2){
+                binding.themeText.text = "BLACK BLUE"
+            }else if(viewPager.currentItem==3){
+                binding.themeText.text = "BLACK GOLD"
+            }else if(viewPager.currentItem==4){
+                binding.themeText.text = "BLACK RED"
+            }else{
+                binding.themeText.text = "그 외"
+            }
+
             view.apply {
                 val pageWidth = width
                 val pageHeight = height
